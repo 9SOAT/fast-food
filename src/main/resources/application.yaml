@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: fast-food
+  main:
+    lazy-initialization: true
+  jmx:
+    enabled: false
+  mvc:
+    problem-details:
+      enabled: true
+    jackson:
+      default-property-inclusion: non_null
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${PG_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    properties:
+      jakarta:
+        persistence:
+          validation:
+            mode: none
+  liquibase:
+    change-log: classpath:db/changelog-master.yaml
+  data:
+    rest:
+      default-media-type: application/json
+mercado-pago:
+  accessToken: ${MERCADO_PAGO_ACCESS_TOKEN}
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
