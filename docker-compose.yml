@@ -7,7 +7,7 @@ services:
         - .env
     volumes:
       - pg-volume:/var/lib/postgresql/data
-  monolith-app:
+  app:
     build: .
     ports:
       - "8080:8080"
