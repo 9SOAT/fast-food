@@ -1,0 +1,34 @@
+deployment:
+  replicas: 1
+  replicaCount: 1
+  image:
+    repository: fast-food
+    pullPolicy: IfNotPresent
+    tag: ""
+  port: 8080
+
+service:
+  type: LoadBalancer
+  port: 8080
+
+secrets:
+  - name: fast-food-mercado-pago
+    data:
+      accessToken: "TEST-123456789-1234-1234-1234-123456789012"
+
+configMap:
+  name: database-config
+  data:
+    DB_HOST: "fast-food-postgresql"
+    DB_PORT: 5432
+    DB_USER: "tech-challenge"
+    DB_DATABASE: "fast_food"
+
+postgresql:
+  auth:
+    username: "tech-challenge"
+    database: "fast_food"
+
+db:
+  secret:
+    name: fast-food-postgresql
