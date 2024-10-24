@@ -48,6 +48,11 @@ spec:
                   secretKeyRef:
                       name: secrets
                       key: POSTGRES_ROOT_PASSWORD
+            - name: MERCADO_PAGO_ACCESS_TOKEN
+              valueFrom:
+                  secretKeyRef:
+                      name: secrets
+                      key: MERCADO_PAGO_ACCESS_TOKEN
       restartPolicy: Always
 
       
