@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
+import static com.fiap.challenge.food.domain.model.order.OrderStatus.*;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
@@ -44,6 +47,15 @@ public class OrderController {
         @RequestParam(name = "status") OrderStatusFilter statusFilter
     ) {
         PageResult<Order> orderPage = orderService.getAllByStatus(statusFilter.getOrderStatuses(), page, size);
+        return PageResultMapper.transformContent(orderPage, viewMapper::toOrderView);
+    }
+
+    @GetMapping("/list")
+    public PageResult<OrderView> getOrders(
+        @RequestParam @Min(1) int page,
+        @Max(20) @RequestParam int size
+    ) {
+        PageResult<Order> orderPage = orderService.getAllByStatusInOrderByCreatedAt(List.of(IN_PREPARATION, READY_FOR_PICKUP, FINISHED), page, size);
         return PageResultMapper.transformContent(orderPage, viewMapper::toOrderView);
     }
 }

@@ -13,4 +13,6 @@ public interface OrderService {
     public void approvePayment(String transactionId);
 
     public void approvePayment(Long orderId);
+
+    public PageResult<Order> getAllByStatusInOrderByCreatedAt(List<OrderStatus> status, int page, int size);
 }
