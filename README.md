@@ -37,12 +37,31 @@ Neste projeto são utilizadas as seguintes tecnologias:
 
 ## 🛠️ Execução Local
 
-Pré-requisitos: 
+### Docker Compose
+
+Pré-requisitos:
 - Ter o Docker e Docker Compose instalados
 
-### Docker Compose
 ```shell
-docker compose -p fast-food up -d
+  docker compose -p fast-food up -d
+```
+
+### Kubernetes
+
+Pré-requisitos: 
+- Ter o Kubernetes instalado e configurado localmente.
+- Ter o kubectl instalado e configurado.
+
+#### kubectl
+
+```shell
+  kubectl apply -f k8s/
+```
+
+Para acessar a aplicação, execute o comando:
+
+```shell
+  kubectl port-forward svc/fast-food-svc 8080:8080
 ```
 
 ## 📖 Documentação API

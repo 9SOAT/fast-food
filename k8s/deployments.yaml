@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fast-food-deployment
+  labels:
+    app: fast-food
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fast-food
+  template:
+    metadata:
+      name: fast-food
+      labels:
+        app: fast-food
+    spec:
+      containers:
+        - name: fast-food
+          image: fast-food:5.0.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              memory: "800Mi"
+              cpu: "700m"
+            limits:
+              memory: "800Mi"
+              cpu: "700m"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 40
+            periodSeconds: 10
+          env:
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: POSTGRES_HOST
+            - name: POSTGRES_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: POSTGRES_PORT
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: POSTGRES_DATABASE
+            - name: POSTGRES_USER
+              valueFrom:
+                  secretKeyRef:
+                    name: secrets
+                    key: POSTGRES_ROOT_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                      name: secrets
+                      key: POSTGRES_ROOT_PASSWORD
+            - name: MERCADO_PAGO_ACCESS_TOKEN
+              valueFrom:
+                  secretKeyRef:
+                      name: secrets
+                      key: MERCADO_PAGO_ACCESS_TOKEN
+      restartPolicy: Always
+
+      
