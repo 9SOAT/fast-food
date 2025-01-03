@@ -15,4 +15,6 @@ public interface OrderRepository {
     Optional<Order> findByPaymentTransactionId(String transactionId);
 
     Optional<Order> findById(Long id);
+
+    PageResult<Order> findAllByStatusInOrderByCreatedAt(List<OrderStatus> inProgressStatuses, int page, int size);
 }
