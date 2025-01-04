@@ -2,8 +2,10 @@ package com.fiap.challenge.food.application.controller;
 
 import com.fiap.challenge.food.application.request.OrderStatusFilter;
 import com.fiap.challenge.food.domain.model.PageResult;
+import com.fiap.challenge.food.domain.model.exception.UnprocessableEntityException;
 import com.fiap.challenge.food.domain.model.order.Order;
 import com.fiap.challenge.food.domain.ports.inbound.OrderService;
+import com.fiap.challenge.food.domain.ports.outbound.OrderRepository;
 import com.fiap.challenge.food.fixture.OrderFixture;
 import com.fiap.challenge.food.fixture.OrderViewFixture;
 import com.fiap.challenge.food.infrastructure.mapper.ViewMapper;
@@ -23,8 +25,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -115,4 +116,14 @@ class OrderControllerTest {
             )
             .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void patchOrderTransitionReturnsOk() throws Exception {
+        long orderId = 1L;
+        mockMvc.perform(MockMvcRequestBuilders.patch("/orders/{orderId}/status/transition", orderId))
+            .andExpect(status().isOk());
+
+        verify(orderService).updateStatus(orderId);
+    }
+
 }

@@ -18,6 +18,8 @@ import java.util.concurrent.Callable;
 public class DomainOrderService implements OrderService {
 
     private final OrderRepository orderRepository;
+    private final String ORDER_NOT_FOUND = "Order not found. ID: %s";
+    private final String ORDER_TRANSACTION_NOT_FOUND = "Order not found. Transaction ID: %s";
 
     public DomainOrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -31,7 +33,7 @@ public class DomainOrderService implements OrderService {
     @Override
     public void approvePayment(Long orderId) {
         approvePayment(
-            String.format("Order not found. ID: %s", orderId),
+            String.format(ORDER_NOT_FOUND, orderId),
             () -> orderRepository.findById(orderId)
         );
     }
@@ -39,7 +41,7 @@ public class DomainOrderService implements OrderService {
     @Override
     public void approvePayment(String transactionId) {
         approvePayment(
-            String.format("Order not found. Transaction ID: %s", transactionId),
+            String.format(ORDER_TRANSACTION_NOT_FOUND, transactionId),
             () -> orderRepository.findByPaymentTransactionId(transactionId)
         );
     }
@@ -54,6 +56,17 @@ public class DomainOrderService implements OrderService {
                 String.format("Order is not waiting for payment. ID: %s", order.getId()), "ORDER_NOT_WAITING_PAYMENT");
         }
         order.approvePayment();
+        orderRepository.save(order);
+    }
+
+    @Override
+    public void updateStatus(Long orderId) {
+        String notFoundMessage = String.format(ORDER_NOT_FOUND, orderId);
+        Order order = orderRepository.findById(orderId)
+            .orElseThrow(() -> new NotFoundException(notFoundMessage, "ORDER_NOT_FOUND"));
+
+        OrderStatus currentStatus = order.getStatus();
+        order.setStatus(currentStatus.next());
         orderRepository.save(order);
     }
 }
