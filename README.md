@@ -65,6 +65,7 @@ Para acessar a aplicação, execute o comando:
 ```
 
 #### Helm
+- Ter o Helm instalado.
 
 ```shell
   helm install fast-food ./helm/fast-food
