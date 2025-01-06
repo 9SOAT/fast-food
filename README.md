@@ -64,6 +64,12 @@ Para acessar a aplicação, execute o comando:
   kubectl port-forward svc/fast-food-svc 8080:8080
 ```
 
+#### Helm
+
+```shell
+  helm install fast-food ./helm/fast-food
+```
+
 ## 📖 Documentação API
 http://localhost:8080/swagger-ui/index.html
 
