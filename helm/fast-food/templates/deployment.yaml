@@ -1,60 +1,80 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{.Chart.Name }}
+  name: {{ include "fast-food.fullname" . }}
   labels:
     {{- include "fast-food.labels" . | nindent 4 }}
-    app: {{.Chart.Name }}
 spec:
-  replicas: {{.Values.deployment.replicaCount}}
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
-      app: {{.Chart.Name }}
+      {{- include "fast-food.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      name: {{.Chart.Name }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
-        app: {{.Chart.Name }}
+        {{- include "fast-food.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "fast-food.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{.Chart.Name }}
-          image: {{ .Values.deployment.image.repository}}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}
-          imagePullPolicy: {{.Values.deployment.image.pullPolicy}}
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.deployment.port}}
+              containerPort: {{ .Values.service.port }}
               protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
           env:
             - name: POSTGRES_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: database-config
+                  name: fast-food-database-config
                   key: DB_HOST
             - name: POSTGRES_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: database-config
+                  name: fast-food-database-config
                   key: DB_PORT
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: database-config
+                  name: fast-food-database-config
                   key: DB_DATABASE
             - name: POSTGRES_USER
               valueFrom:
                 configMapKeyRef:
-                  name: database-config
+                  name: fast-food-database-config
                   key: DB_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.db.secret.name }}
+                  name: {{ .Values.postgresql.common.name }}
                   key: password
             - name: MERCADO_PAGO_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: fast-food-mercado-pago
                   key: accessToken
-      restartPolicy: Always
-
-
+      restartPolicy: {{ .Values.restartPolicy }}
