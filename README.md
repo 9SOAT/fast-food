@@ -61,7 +61,7 @@ Pré-requisitos:
 Para acessar a aplicação, execute o comando:
 
 ```shell
-  kubectl port-forward svc/fast-food-svc 8080:8080
+  kubectl port-forward svc/fast-food 8080:8080
 ```
 
 #### Helm
