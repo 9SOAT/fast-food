@@ -3,6 +3,7 @@ package com.fiap.challenge.food.infrastructure.repository;
 import com.fiap.challenge.food.domain.model.PageResult;
 import com.fiap.challenge.food.domain.model.order.Order;
 import com.fiap.challenge.food.domain.model.order.OrderStatus;
+import com.fiap.challenge.food.domain.model.payment.Payment;
 import com.fiap.challenge.food.domain.ports.outbound.OrderRepository;
 import com.fiap.challenge.food.infrastructure.entity.OrderEntity;
 import com.fiap.challenge.food.infrastructure.entity.OrderStatusEntity;
@@ -54,5 +55,10 @@ public class PostgresOrderRepository implements OrderRepository {
     public Optional<Order> findById(Long id) {
         return jpaOrderRepository.findById(id)
             .map(entityMapper::toOrder);
+    }
+
+    @Override
+    public Optional<Payment> findPaymentStatusById(Long id) {
+        return jpaOrderRepository.findPaymentStatusById(id).map(entityMapper::toPayment);
     }
 }

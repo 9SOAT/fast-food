@@ -3,6 +3,7 @@ package com.fiap.challenge.food.domain.ports.outbound;
 import com.fiap.challenge.food.domain.model.PageResult;
 import com.fiap.challenge.food.domain.model.order.Order;
 import com.fiap.challenge.food.domain.model.order.OrderStatus;
+import com.fiap.challenge.food.domain.model.payment.Payment;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +16,6 @@ public interface OrderRepository {
     Optional<Order> findByPaymentTransactionId(String transactionId);
 
     Optional<Order> findById(Long id);
+
+    Optional<Payment> findPaymentStatusById(Long id);
 }
