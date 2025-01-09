@@ -17,5 +17,4 @@ public interface JpaOrderRepository extends JpaRepository<OrderEntity, Long> {
 
     Page<OrderEntity> findAllByStatusIn(Collection<@NotNull OrderStatusEntity> statuses, Pageable pageable);
     Optional<OrderEntity> findByPaymentTransactionId(String transactionId);
-    Optional<PaymentEntity> findPaymentStatusById(Long id);
 }

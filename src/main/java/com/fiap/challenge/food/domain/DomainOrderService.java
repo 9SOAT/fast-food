@@ -9,6 +9,7 @@ import com.fiap.challenge.food.domain.model.payment.Payment;
 import com.fiap.challenge.food.domain.model.payment.PaymentStatus;
 import com.fiap.challenge.food.domain.ports.inbound.OrderService;
 import com.fiap.challenge.food.domain.ports.outbound.OrderRepository;
+import com.fiap.challenge.food.infrastructure.entity.OrderEntity;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
@@ -40,8 +41,8 @@ public class DomainOrderService implements OrderService {
 
     @Override
     public PaymentStatus getPaymentStatusById(Long id) {
-        Optional<Payment> orderPayment = orderRepository.findPaymentStatusById(id);
-        return orderPayment.get().getStatus();
+        Optional<Order> orderPayment = orderRepository.findById(id);
+        return orderPayment.get().getPayment().getStatus();
     }
 
     @Override

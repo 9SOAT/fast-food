@@ -7,6 +7,7 @@ import com.fiap.challenge.food.domain.model.payment.Payment;
 import com.fiap.challenge.food.domain.ports.outbound.OrderRepository;
 import com.fiap.challenge.food.infrastructure.entity.OrderEntity;
 import com.fiap.challenge.food.infrastructure.entity.OrderStatusEntity;
+import com.fiap.challenge.food.infrastructure.entity.PaymentEntity;
 import com.fiap.challenge.food.infrastructure.mapper.EntityMapper;
 import com.fiap.challenge.food.infrastructure.mapper.PageResultMapper;
 import org.springframework.data.domain.Page;
@@ -57,8 +58,4 @@ public class PostgresOrderRepository implements OrderRepository {
             .map(entityMapper::toOrder);
     }
 
-    @Override
-    public Optional<Payment> findPaymentStatusById(Long id) {
-        return jpaOrderRepository.findPaymentStatusById(id).map(entityMapper::toPayment);
-    }
 }
