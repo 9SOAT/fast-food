@@ -1,18 +1,10 @@
 package com.fiap.challenge.food.infrastructure.config;
 
-import com.fiap.challenge.food.domain.DomainCartService;
-import com.fiap.challenge.food.domain.DomainCatalogService;
-import com.fiap.challenge.food.domain.DomainCheckoutService;
-import com.fiap.challenge.food.domain.DomainConsumerService;
-import com.fiap.challenge.food.domain.DomainProductService;
+import com.fiap.challenge.food.domain.*;
 import com.fiap.challenge.food.domain.ports.inbound.CartService;
 import com.fiap.challenge.food.domain.ports.inbound.ConsumerService;
 import com.fiap.challenge.food.domain.ports.inbound.ProductService;
-import com.fiap.challenge.food.domain.ports.outbound.CartRepository;
-import com.fiap.challenge.food.domain.ports.outbound.ConsumerRepository;
-import com.fiap.challenge.food.domain.ports.outbound.OrderRepository;
-import com.fiap.challenge.food.domain.ports.outbound.PaymentClient;
-import com.fiap.challenge.food.domain.ports.outbound.ProductRepository;
+import com.fiap.challenge.food.domain.ports.outbound.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -42,5 +34,10 @@ public class BeanConfiguration {
     @Bean
     public DomainCheckoutService checkoutService(OrderRepository orderRepository, CartRepository cartRepository, PaymentClient paymentClient) {
         return new DomainCheckoutService(orderRepository, cartRepository, paymentClient);
+    }
+
+    @Bean
+    public DomainWebhookService webhookService(WebhookRepository webhookRepository) {
+        return new DomainWebhookService(webhookRepository);
     }
 }

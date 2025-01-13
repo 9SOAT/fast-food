@@ -97,6 +97,12 @@
             <artifactId>spring-context-indexer</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>io.hypersistence</groupId>
+            <artifactId>hypersistence-utils-hibernate-63</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+
 
         <!--	Test	-->
         <dependency>
