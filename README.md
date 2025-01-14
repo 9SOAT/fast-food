@@ -45,6 +45,19 @@ Pré-requisitos:
 docker compose -p fast-food up -d
 ```
 
+Para acessar a aplicação, execute o comando:
+
+```shell
+  kubectl port-forward svc/fast-food 8080:8080
+```
+
+#### Helm
+- Ter o Helm instalado.
+
+```shell
+  helm install fast-food ./helm/fast-food
+```
+
 ## 📖 Documentação
 
 Como parte da documentação, foram elaborados alguns artefatos para auxiliar no entendimento da equipe, incluindo:
