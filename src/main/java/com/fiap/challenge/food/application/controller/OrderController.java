@@ -8,16 +8,14 @@ import com.fiap.challenge.food.domain.model.payment.PaymentStatus;
 import com.fiap.challenge.food.domain.ports.inbound.OrderService;
 import com.fiap.challenge.food.infrastructure.mapper.PageResultMapper;
 import com.fiap.challenge.food.infrastructure.mapper.ViewMapper;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+import static com.fiap.challenge.food.domain.model.order.OrderStatus.*;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
@@ -51,5 +49,20 @@ public class OrderController {
     @GetMapping("/{id}/payment/status")
     public PaymentStatus getPaymentStatusById(@PathVariable Long id) {
         return orderService.getPaymentStatusById(id);
+    }
+
+    @GetMapping("/list")
+    public PageResult<OrderView> getOrders(
+        @RequestParam @Min(1) int page,
+        @Max(20) @RequestParam int size
+    ) {
+        PageResult<Order> orderPage = orderService.getAllByStatusInOrderByCreatedAt(List.of(IN_PREPARATION, READY_FOR_PICKUP, FINISHED), page, size);
+        return PageResultMapper.transformContent(orderPage, viewMapper::toOrderView);
+    }
+
+    @Transactional
+    @PatchMapping("/{id}/status/transition")
+    public void updateOrderStatus(@PathVariable Long id) {
+        orderService.updateStatus(id);
     }
 }

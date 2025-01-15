@@ -23,8 +23,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -115,4 +114,27 @@ class OrderControllerTest {
             )
             .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void getOrdersSortedByStatusAndCreatedDateReturnsPageResult() throws Exception {
+        PageResult<Order> orderPage = new PageResult<>(List.of(OrderFixture.validOrder()), 1, 1, 1, 1);
+        when(orderService.getAllByStatusInOrderByCreatedAt(any(), anyInt(), anyInt())).thenReturn(orderPage);
+        when(viewMapper.toOrderView(any())).thenReturn(OrderViewFixture.validOrderView());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/orders/list")
+                .param("page", "1")
+                .param("size", "10"))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    void patchOrderTransitionReturnsOk() throws Exception {
+        long orderId = 1L;
+        mockMvc.perform(MockMvcRequestBuilders.patch("/orders/{orderId}/status/transition", orderId))
+            .andExpect(status().isOk());
+
+        verify(orderService).updateStatus(orderId);
+    }
+
 }

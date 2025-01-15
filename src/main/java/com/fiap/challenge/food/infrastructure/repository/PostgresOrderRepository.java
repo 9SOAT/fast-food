@@ -10,6 +10,7 @@ import com.fiap.challenge.food.infrastructure.mapper.EntityMapper;
 import com.fiap.challenge.food.infrastructure.mapper.PageResultMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +41,17 @@ public class PostgresOrderRepository implements OrderRepository {
 
         Page<OrderEntity> orderEntities = jpaOrderRepository.findAllByStatusIn(statusEntities,
             PageRequest.of(Math.max(page - 1, 0), size, Sort.by(Sort.Order.desc("id"))));
+
+        return PageResultMapper.toPageResult(orderEntities, entityMapper::toOrder);
+    }
+
+    @Override
+    public PageResult<Order> findAllByStatusInOrderByCreatedAt(List<OrderStatus> inProgressStatuses, int page, int size) {
+        List<OrderStatusEntity> statusEntities = inProgressStatuses.stream()
+            .map(entityMapper::toOrderStatusEntity).toList();
+
+        Pageable pageable = PageRequest.of(Math.max(page - 1, 0), size);
+        Page<OrderEntity> orderEntities = jpaOrderRepository.findAllByStatusInOrderByCustom(statusEntities, pageable);
 
         return PageResultMapper.toPageResult(orderEntities, entityMapper::toOrder);
     }
