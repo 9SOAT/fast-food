@@ -4,6 +4,7 @@ import com.fiap.challenge.food.application.request.OrderStatusFilter;
 import com.fiap.challenge.food.application.response.OrderView;
 import com.fiap.challenge.food.domain.model.PageResult;
 import com.fiap.challenge.food.domain.model.order.Order;
+import com.fiap.challenge.food.domain.model.payment.PaymentStatus;
 import com.fiap.challenge.food.domain.ports.inbound.OrderService;
 import com.fiap.challenge.food.infrastructure.mapper.PageResultMapper;
 import com.fiap.challenge.food.infrastructure.mapper.ViewMapper;
@@ -43,6 +44,11 @@ public class OrderController {
     ) {
         PageResult<Order> orderPage = orderService.getAllByStatus(statusFilter.getOrderStatuses(), page, size);
         return PageResultMapper.transformContent(orderPage, viewMapper::toOrderView);
+    }
+
+    @GetMapping("/{id}/payment/status")
+    public PaymentStatus getPaymentStatusById(@PathVariable Long id) {
+        return orderService.getPaymentStatusById(id);
     }
 
     @GetMapping("/list")

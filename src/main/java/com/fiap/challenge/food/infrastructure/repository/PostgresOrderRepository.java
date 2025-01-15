@@ -67,4 +67,5 @@ public class PostgresOrderRepository implements OrderRepository {
         return jpaOrderRepository.findById(id)
             .map(entityMapper::toOrder);
     }
+
 }

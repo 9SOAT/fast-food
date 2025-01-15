@@ -5,6 +5,7 @@ import com.fiap.challenge.food.domain.model.exception.NotFoundException;
 import com.fiap.challenge.food.domain.model.exception.UnprocessableEntityException;
 import com.fiap.challenge.food.domain.model.order.Order;
 import com.fiap.challenge.food.domain.model.order.OrderStatus;
+import com.fiap.challenge.food.domain.model.payment.PaymentStatus;
 import com.fiap.challenge.food.domain.ports.inbound.OrderService;
 import com.fiap.challenge.food.domain.ports.outbound.OrderRepository;
 import lombok.SneakyThrows;
@@ -36,6 +37,12 @@ public class DomainOrderService implements OrderService {
             String.format(ORDER_NOT_FOUND, orderId),
             () -> orderRepository.findById(orderId)
         );
+    }
+
+    @Override
+    public PaymentStatus getPaymentStatusById(Long id) {
+        Optional<Order> orderPayment = orderRepository.findById(id);
+        return orderPayment.get().getPayment().getStatus();
     }
 
     @Override
