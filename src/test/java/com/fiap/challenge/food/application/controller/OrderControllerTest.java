@@ -23,8 +23,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -127,6 +126,15 @@ class OrderControllerTest {
                 .param("size", "10"))
             .andDo(MockMvcResultHandlers.print())
             .andExpect(status().isOk());
+    }
+
+    @Test
+    void patchOrderTransitionReturnsOk() throws Exception {
+        long orderId = 1L;
+        mockMvc.perform(MockMvcRequestBuilders.patch("/orders/{orderId}/status/transition", orderId))
+            .andExpect(status().isOk());
+
+        verify(orderService).updateStatus(orderId);
     }
 
 }

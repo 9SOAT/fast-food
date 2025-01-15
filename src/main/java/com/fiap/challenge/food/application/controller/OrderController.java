@@ -7,15 +7,10 @@ import com.fiap.challenge.food.domain.model.order.Order;
 import com.fiap.challenge.food.domain.ports.inbound.OrderService;
 import com.fiap.challenge.food.infrastructure.mapper.PageResultMapper;
 import com.fiap.challenge.food.infrastructure.mapper.ViewMapper;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -57,5 +52,11 @@ public class OrderController {
     ) {
         PageResult<Order> orderPage = orderService.getAllByStatusInOrderByCreatedAt(List.of(IN_PREPARATION, READY_FOR_PICKUP, FINISHED), page, size);
         return PageResultMapper.transformContent(orderPage, viewMapper::toOrderView);
+    }
+
+    @Transactional
+    @PatchMapping("/{id}/status/transition")
+    public void updateOrderStatus(@PathVariable Long id) {
+        orderService.updateStatus(id);
     }
 }
