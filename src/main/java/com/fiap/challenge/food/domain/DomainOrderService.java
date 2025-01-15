@@ -46,6 +46,11 @@ public class DomainOrderService implements OrderService {
         );
     }
 
+    @Override
+    public PageResult<Order> getAllByStatusInOrderByCreatedAt(List<OrderStatus> status, int page, int size) {
+        return orderRepository.findAllByStatusInOrderByCreatedAt(status, page, size);
+    }
+
     @SneakyThrows
     public void approvePayment(String notFoundMessage, Callable<Optional<Order>> getOrderAction) {
         Order order = getOrderAction.call()

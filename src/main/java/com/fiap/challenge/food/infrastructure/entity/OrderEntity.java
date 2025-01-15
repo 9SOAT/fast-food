@@ -18,6 +18,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 
 import static jakarta.persistence.EnumType.STRING;
@@ -59,6 +60,10 @@ public class OrderEntity {
     @DecimalMin(value = "0.01")
     @Column(scale = 2)
     private BigDecimal total;
+
+    @Column
+    @NotNull
+    private Instant createdAt;
 
     public void setItems(List<OrderItemEntity> items) {
         items.forEach(item -> item.setOrder(this));

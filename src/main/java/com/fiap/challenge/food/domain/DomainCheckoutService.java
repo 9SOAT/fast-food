@@ -14,6 +14,7 @@ import com.fiap.challenge.food.domain.ports.outbound.PaymentClient;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 
+import java.time.Instant;
 import java.util.List;
 
 import static com.fiap.challenge.food.domain.model.order.OrderStatus.WAITING_PAYMENT;
@@ -62,6 +63,7 @@ public class DomainCheckoutService implements CheckoutService {
             .total(cart.getTotal())
             .cartId(cart.getId())
             .payment(payment)
+            .createdAt(Instant.now())
             .build();
     }
 

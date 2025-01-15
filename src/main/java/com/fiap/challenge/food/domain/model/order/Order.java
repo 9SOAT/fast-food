@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -21,6 +22,7 @@ public class Order {
     private List<OrderItem> items;
     private OrderStatus status;
     private BigDecimal total;
+    private Instant createdAt;
 
     public void approvePayment() {
         this.status = OrderStatus.READY_FOR_PREPARATION;
