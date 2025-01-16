@@ -1,7 +1,7 @@
 package com.fiap.challenge.food.infrastructure.mapper;
 
 import com.fiap.challenge.food.application.request.ConsumerMutation;
-import com.fiap.challenge.food.application.request.MercadoPagoWebhookRequest;
+import com.fiap.challenge.food.application.request.WebhookRequest;
 import com.fiap.challenge.food.application.request.ProductMutation;
 import com.fiap.challenge.food.application.response.CartView;
 import com.fiap.challenge.food.application.response.ConsumerView;
@@ -15,7 +15,6 @@ import com.fiap.challenge.food.domain.model.payment.Payment;
 import com.fiap.challenge.food.domain.model.product.Product;
 import com.fiap.challenge.food.domain.model.webhook.Webhook;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -39,9 +38,5 @@ public interface ViewMapper {
 
     public OrderView toOrderView(Order order);
 
-    @Mapping(source = "api_version", target = "apiVersion")
-    @Mapping(source = "date_created", target = "dateCreated")
-    @Mapping(source = "live_mode", target = "liveMode")
-    @Mapping(source = "user_id", target = "userId")
-    public Webhook toWebhook(MercadoPagoWebhookRequest webhook);
+    public Webhook toWebhook(WebhookRequest webhook);
 }

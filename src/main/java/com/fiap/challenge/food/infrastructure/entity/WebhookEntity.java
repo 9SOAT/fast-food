@@ -1,15 +1,15 @@
 package com.fiap.challenge.food.infrastructure.entity;
 
-import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 
 import java.time.ZonedDateTime;
-import java.util.Map;
+
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Data
 @NoArgsConstructor
@@ -20,14 +20,13 @@ import java.util.Map;
 public class WebhookEntity {
 
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    private String action;
-    @Type(JsonBinaryType.class)
-    private Map<String, String> data;
-    private String apiVersion;
+    private Long paymentId;
+    @Enumerated(STRING)
+    private WebhookActionEntity action;
+    @Enumerated(STRING)
+    private PaymentStatusEntity status;
     private ZonedDateTime dateCreated;
-    private boolean liveMode;
-    private String type;
-    private Long userId;
 
 }

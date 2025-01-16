@@ -37,7 +37,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public DomainWebhookService webhookService(WebhookRepository webhookRepository) {
-        return new DomainWebhookService(webhookRepository);
+    public DomainWebhookService webhookService(WebhookRepository webhookRepository, PaymentRepository paymentRepository, PaymentClient paymentClient) {
+        return new DomainWebhookService(webhookRepository, paymentRepository, paymentClient);
     }
 }

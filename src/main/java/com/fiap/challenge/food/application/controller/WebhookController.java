@@ -1,6 +1,6 @@
 package com.fiap.challenge.food.application.controller;
 
-import com.fiap.challenge.food.application.request.MercadoPagoWebhookRequest;
+import com.fiap.challenge.food.application.request.WebhookRequest;
 import com.fiap.challenge.food.domain.model.webhook.Webhook;
 import com.fiap.challenge.food.domain.ports.inbound.WebhookService;
 import com.fiap.challenge.food.infrastructure.mapper.ViewMapper;
@@ -21,10 +21,10 @@ public class WebhookController {
     }
 
     @ResponseStatus(CREATED)
-    @PostMapping("/mercado-pago")
-    public void webhookNotification(@RequestBody MercadoPagoWebhookRequest mercadoPagoWebhookRequest) {
-        Webhook webhook = viewMapper.toWebhook(mercadoPagoWebhookRequest);
-        webhookService.saveNotification(webhook);
+    @PostMapping
+    public void webhookNotification(@RequestBody WebhookRequest webhookRequest) {
+        Webhook webhook = viewMapper.toWebhook(webhookRequest);
+        webhookService.updatePayment(webhook);
     }
 
 }

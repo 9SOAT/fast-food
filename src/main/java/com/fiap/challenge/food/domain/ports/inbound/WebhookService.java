@@ -4,6 +4,6 @@ import com.fiap.challenge.food.domain.model.webhook.Webhook;
 
 public interface WebhookService {
 
-    public void saveNotification(Webhook webhook);
+    public void updatePayment(Webhook webhook);
 
 }
