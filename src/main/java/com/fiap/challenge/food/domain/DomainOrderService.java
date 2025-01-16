@@ -72,13 +72,12 @@ public class DomainOrderService implements OrderService {
     }
 
     @Override
-    public void updateStatus(Long orderId) {
+    public void updateStatus(Long orderId, OrderStatus status) {
         String notFoundMessage = String.format(ORDER_NOT_FOUND, orderId);
         Order order = orderRepository.findById(orderId)
             .orElseThrow(() -> new NotFoundException(notFoundMessage, "ORDER_NOT_FOUND"));
 
-        OrderStatus currentStatus = order.getStatus();
-        order.setStatus(currentStatus.next());
+        order.setStatus(status);
         orderRepository.save(order);
     }
 }
