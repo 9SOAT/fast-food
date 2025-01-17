@@ -11,17 +11,8 @@ import com.fiap.challenge.food.domain.model.payment.Payment;
 import com.fiap.challenge.food.domain.model.product.Product;
 import com.fiap.challenge.food.domain.model.product.ProductCategory;
 import com.fiap.challenge.food.domain.model.product.ProductStatus;
-import com.fiap.challenge.food.infrastructure.entity.CartEntity;
-import com.fiap.challenge.food.infrastructure.entity.CartItemEntity;
-import com.fiap.challenge.food.infrastructure.entity.CartStatusEntity;
-import com.fiap.challenge.food.infrastructure.entity.ConsumerEntity;
-import com.fiap.challenge.food.infrastructure.entity.OrderEntity;
-import com.fiap.challenge.food.infrastructure.entity.OrderItemEntity;
-import com.fiap.challenge.food.infrastructure.entity.OrderStatusEntity;
-import com.fiap.challenge.food.infrastructure.entity.PaymentEntity;
-import com.fiap.challenge.food.infrastructure.entity.ProductCategoryEntity;
-import com.fiap.challenge.food.infrastructure.entity.ProductEntity;
-import com.fiap.challenge.food.infrastructure.entity.ProductStatusEntity;
+import com.fiap.challenge.food.domain.model.webhook.Webhook;
+import com.fiap.challenge.food.infrastructure.entity.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -65,4 +56,8 @@ public interface EntityMapper {
     OrderStatusEntity toOrderStatusEntity(OrderStatus orderStatus);
 
     ProductStatusEntity toStatusEntity(ProductStatus productStatus);
+
+    WebhookEntity toWebhookEntity(Webhook webhook);
+
+    Webhook toWebhook(WebhookEntity webhook);
 }

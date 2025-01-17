@@ -2,6 +2,7 @@ package com.fiap.challenge.food.infrastructure.integration;
 
 import com.fiap.challenge.food.domain.model.exception.UnprocessableEntityException;
 import com.fiap.challenge.food.domain.model.payment.Payment;
+import com.fiap.challenge.food.domain.model.payment.PaymentStatus;
 import com.fiap.challenge.food.domain.ports.outbound.PaymentClient;
 import com.mercadopago.client.payment.PaymentCreateRequest;
 import com.mercadopago.core.MPRequestOptions;
@@ -72,5 +73,11 @@ public class PaymentClientAdapter implements PaymentClient {
             .paymentMethodId("pix")
             .dateOfExpiration(OffsetDateTime.from(OffsetDateTime.from(LocalDateTime.now().plusMinutes(1))))
             .build();
+    }
+
+    public Payment update(Payment payment, PaymentStatus paymentStatus) {
+        log.info("Updating fake payment.");
+        payment.setStatus(paymentStatus);
+        return payment;
     }
 }
