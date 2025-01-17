@@ -1,6 +1,7 @@
 package com.fiap.challenge.food.application.controller;
 
 import com.fiap.challenge.food.application.request.OrderStatusFilter;
+import com.fiap.challenge.food.application.request.OrderStatusMutation;
 import com.fiap.challenge.food.application.response.OrderView;
 import com.fiap.challenge.food.domain.model.PageResult;
 import com.fiap.challenge.food.domain.model.order.Order;
@@ -9,6 +10,7 @@ import com.fiap.challenge.food.domain.ports.inbound.OrderService;
 import com.fiap.challenge.food.infrastructure.mapper.PageResultMapper;
 import com.fiap.challenge.food.infrastructure.mapper.ViewMapper;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.web.bind.annotation.*;
@@ -61,8 +63,11 @@ public class OrderController {
     }
 
     @Transactional
-    @PatchMapping("/{id}/status/transition")
-    public void updateOrderStatus(@PathVariable Long id) {
-        orderService.updateStatus(id);
+    @PatchMapping("/{id}/status")
+    public void updateOrderStatus(
+        @PathVariable Long id,
+        @Valid @RequestBody OrderStatusMutation orderStatusMutation
+    ) {
+        orderService.updateStatus(id, orderStatusMutation.status());
     }
 }

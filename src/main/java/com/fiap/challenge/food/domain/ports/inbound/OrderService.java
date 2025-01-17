@@ -1,5 +1,6 @@
 package com.fiap.challenge.food.domain.ports.inbound;
 
+import com.fiap.challenge.food.application.request.OrderStatusMutation;
 import com.fiap.challenge.food.domain.model.PageResult;
 import com.fiap.challenge.food.domain.model.order.Order;
 import com.fiap.challenge.food.domain.model.order.OrderStatus;
@@ -17,7 +18,7 @@ public interface OrderService {
 
     public PaymentStatus getPaymentStatusById(Long id);
 
-    public void updateStatus(Long orderId);
+    public void updateStatus(Long orderId, OrderStatus status);
 
     public PageResult<Order> getAllByStatusInOrderByCreatedAt(List<OrderStatus> status, int page, int size);
 }

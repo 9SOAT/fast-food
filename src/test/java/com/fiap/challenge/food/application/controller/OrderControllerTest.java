@@ -3,6 +3,7 @@ package com.fiap.challenge.food.application.controller;
 import com.fiap.challenge.food.application.request.OrderStatusFilter;
 import com.fiap.challenge.food.domain.model.PageResult;
 import com.fiap.challenge.food.domain.model.order.Order;
+import com.fiap.challenge.food.domain.model.order.OrderStatus;
 import com.fiap.challenge.food.domain.ports.inbound.OrderService;
 import com.fiap.challenge.food.fixture.OrderFixture;
 import com.fiap.challenge.food.fixture.OrderViewFixture;
@@ -24,6 +25,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -131,10 +133,19 @@ class OrderControllerTest {
     @Test
     void patchOrderTransitionReturnsOk() throws Exception {
         long orderId = 1L;
-        mockMvc.perform(MockMvcRequestBuilders.patch("/orders/{orderId}/status/transition", orderId))
+        var requestBody = """
+                {
+                    "status": "IN_PREPARATION"
+                }
+            """;
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/orders/{orderId}/status", orderId)
+            .content(requestBody)
+            .contentType(APPLICATION_JSON))
+            .andDo(MockMvcResultHandlers.print())
             .andExpect(status().isOk());
 
-        verify(orderService).updateStatus(orderId);
+        verify(orderService).updateStatus(orderId, OrderStatus.IN_PREPARATION);
     }
 
 }
