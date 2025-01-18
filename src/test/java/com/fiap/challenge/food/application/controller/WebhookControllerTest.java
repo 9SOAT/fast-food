@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.ZonedDateTime;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -47,20 +48,19 @@ public class WebhookControllerTest {
     void sendWebhookNotificationShouldUpdatePayment() throws Exception {
         when(viewMapper.toWebhook(any())).thenReturn(Webhook.builder().build());
 
+        var transactionId = UUID.randomUUID().toString();
         WebhookRequest webhookRequest = new WebhookRequest();
-        webhookRequest.setPaymentId(1L);
+        webhookRequest.setTransactionId(transactionId);
         webhookRequest.setAction(WebhookAction.UPDATED);
         webhookRequest.setStatus(PaymentWebhookStatus.APPROVED);
         webhookRequest.setDateCreated(ZonedDateTime.parse("2025-01-16T12:34:56Z"));
 
-        String requestBody = """
-        {
-            "paymentId": 1,
-            "action": "UPDATED",
-            "status": "APPROVED",
-            "dateCreated": "2025-01-16T12:34:56Z"
-        }
-        """;
+        String requestBody = "{ " +
+            "\"transactionId\": \"" + transactionId + "\"," +
+            "\"action\": \"UPDATED\"," +
+            "\"status\": \"APPROVED\"," +
+            "\"dateCreated\": \"2025-01-16T12:34:56Z\"" +
+            " }";
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post("/webhook/")
             .contentType(MediaType.APPLICATION_JSON)

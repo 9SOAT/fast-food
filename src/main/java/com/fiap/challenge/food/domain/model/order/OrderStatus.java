@@ -3,6 +3,7 @@ package com.fiap.challenge.food.domain.model.order;
 import java.util.List;
 
 public enum OrderStatus {
+    CANCELLED,
     WAITING_PAYMENT,
     READY_FOR_PREPARATION,
     IN_PREPARATION,

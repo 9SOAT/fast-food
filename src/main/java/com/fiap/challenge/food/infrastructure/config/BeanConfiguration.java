@@ -3,6 +3,7 @@ package com.fiap.challenge.food.infrastructure.config;
 import com.fiap.challenge.food.domain.*;
 import com.fiap.challenge.food.domain.ports.inbound.CartService;
 import com.fiap.challenge.food.domain.ports.inbound.ConsumerService;
+import com.fiap.challenge.food.domain.ports.inbound.OrderService;
 import com.fiap.challenge.food.domain.ports.inbound.ProductService;
 import com.fiap.challenge.food.domain.ports.outbound.*;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +38,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public DomainWebhookService webhookService(WebhookRepository webhookRepository, PaymentRepository paymentRepository, PaymentClient paymentClient) {
-        return new DomainWebhookService(webhookRepository, paymentRepository, paymentClient);
+    public DomainWebhookService webhookService(WebhookRepository webhookRepository, OrderService orderService) {
+        return new DomainWebhookService(webhookRepository, orderService);
     }
 }

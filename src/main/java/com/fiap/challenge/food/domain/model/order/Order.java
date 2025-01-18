@@ -29,6 +29,11 @@ public class Order {
         this.payment.approve();
     }
 
+    public void rejectPayment() {
+        this.status = OrderStatus.CANCELLED;
+        this.payment.reject();
+    }
+
     public boolean isWaitingPaymentStatus() {
         return status.isWaitingPayment()
             && payment.isPendingStatus();

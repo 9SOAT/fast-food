@@ -23,7 +23,7 @@ public interface JpaOrderRepository extends JpaRepository<OrderEntity, Long> {
         "ORDER BY CASE " +
         "WHEN o.status = 'READY_FOR_PICKUP' THEN 1 " +
         "WHEN o.status = 'IN_PREPARATION' THEN 2 " +
-        "WHEN o.status = 'FINISHED' THEN 3 " +
+        "WHEN o.status = 'READY_FOR_PREPARATION' THEN 3 " +
         "END ASC, o.createdAt ASC")
     Page<OrderEntity> findAllByStatusInOrderByCustom(
         @Param("statuses") List<OrderStatusEntity> statuses,

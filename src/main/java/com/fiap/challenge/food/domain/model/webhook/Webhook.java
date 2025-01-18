@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 @Builder
 public class Webhook {
 
-    private Long paymentId;
+    private String transactionId;
     private WebhookAction action;
     private PaymentStatus status;
     private ZonedDateTime dateCreated;

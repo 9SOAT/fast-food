@@ -28,6 +28,10 @@ public class Payment {
         this.approvedAt = LocalDateTime.now();
     }
 
+    public void reject() {
+        this.status = PaymentStatus.REJECTED;
+    }
+
     public boolean isPendingStatus() {
         return this.status.isPending();
     }

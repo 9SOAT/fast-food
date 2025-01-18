@@ -4,6 +4,7 @@ import com.fiap.challenge.food.application.request.WebhookRequest;
 import com.fiap.challenge.food.domain.model.webhook.Webhook;
 import com.fiap.challenge.food.domain.ports.inbound.WebhookService;
 import com.fiap.challenge.food.infrastructure.mapper.ViewMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -22,6 +23,7 @@ public class WebhookController {
 
     @ResponseStatus(CREATED)
     @PostMapping
+    @Transactional
     public void webhookNotification(@RequestBody WebhookRequest webhookRequest) {
         Webhook webhook = viewMapper.toWebhook(webhookRequest);
         webhookService.updatePayment(webhook);

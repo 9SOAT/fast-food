@@ -22,7 +22,7 @@ public class WebhookEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    private Long paymentId;
+    private String transactionId;
     @Enumerated(STRING)
     private WebhookActionEntity action;
     @Enumerated(STRING)

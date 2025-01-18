@@ -58,7 +58,7 @@ public class OrderController {
         @RequestParam @Min(1) int page,
         @Max(20) @RequestParam int size
     ) {
-        PageResult<Order> orderPage = orderService.getAllByStatusInOrderByCreatedAt(List.of(IN_PREPARATION, READY_FOR_PICKUP, FINISHED), page, size);
+        PageResult<Order> orderPage = orderService.getAllByStatusInOrderByCreatedAt(List.of(IN_PREPARATION, READY_FOR_PICKUP, READY_FOR_PREPARATION), page, size);
         return PageResultMapper.transformContent(orderPage, viewMapper::toOrderView);
     }
 

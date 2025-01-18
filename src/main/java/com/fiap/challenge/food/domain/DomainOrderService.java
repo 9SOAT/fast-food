@@ -40,6 +40,14 @@ public class DomainOrderService implements OrderService {
     }
 
     @Override
+    public void rejectPayment(String transactionId) {
+        rejectPayment(
+            String.format(ORDER_NOT_FOUND, transactionId),
+            () -> orderRepository.findByPaymentTransactionId(transactionId)
+        );
+    }
+
+    @Override
     public PaymentStatus getPaymentStatusById(Long id) {
         Optional<Order> orderPayment = orderRepository.findById(id);
         return orderPayment.get().getPayment().getStatus();
@@ -68,6 +76,19 @@ public class DomainOrderService implements OrderService {
                 String.format("Order is not waiting for payment. ID: %s", order.getId()), "ORDER_NOT_WAITING_PAYMENT");
         }
         order.approvePayment();
+        orderRepository.save(order);
+    }
+
+    @SneakyThrows
+    public void rejectPayment(String notFoundMessage, Callable<Optional<Order>> getOrderAction) {
+        Order order = getOrderAction.call()
+            .orElseThrow(() -> new NotFoundException(notFoundMessage, "ORDER_NOT_FOUND"));
+
+        if (!order.isWaitingPaymentStatus()) {
+            throw new UnprocessableEntityException(
+                String.format("Order is not waiting for payment. ID: %s", order.getId()), "ORDER_NOT_WAITING_PAYMENT");
+        }
+        order.rejectPayment();
         orderRepository.save(order);
     }
 
