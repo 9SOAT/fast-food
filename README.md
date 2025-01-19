@@ -61,23 +61,23 @@ Pré-requisitos:
 Para acessar a aplicação, execute o comando:
 
 ```shell
-  kubectl port-forward svc/fast-food 8080:8080
+  kubectl port-forward svc/fast-food-svc 8080:8080
 ```
 
-#### Helm
-- Ter o Helm instalado.
+## 📖 Documentação
 
-```shell
-  helm install fast-food ./helm/fast-food
-```
-
-## 📖 Documentação API
-http://localhost:8080/swagger-ui/index.html
-- [Postman para importação](FIAP-request.postman_collection.json)
-
+Como parte da documentação, foram elaborados alguns artefatos para auxiliar no entendimento da equipe, incluindo:
+- Diagramas do C4 Model nas camadas Context, Container e Component, para oferecer uma visão abrangente e estruturada da arquitetura do sistema.
+  - [Context](/docs/c4-model/systemcontext.png)
+  - [Container](/docs/c4-model/container.png)
+  - [Component](/docs/c4-model/component.png)
+- Um diagrama de Kubernetes (K8s), acompanhado de uma análise do problema enfrentado: o restaurante está lidando com questões de performance em seu totem.
+  - [Diagrama](/docs/k8s/sk8.png)
+- Requests (API)
+  - Swagger: http://localhost:8080/swagger-ui/index.html
+  - [Postman para importação](FIAP-request.postman_collection.json)
 
 #### Guia para execução das APIs
-
 **1. Cadastro do Catálogo de Produtos:**
 Endpoint: POST '[...]/products'
 Descrição: Utiliza este endpoint para cadastrar todos os itens que serão vendidos no seu estabelecimento.
@@ -126,9 +126,9 @@ A arquitetura hexagonal, também conhecida como Arquitetura de Portas e Adaptado
 
 #### Principais Conceitos
 
-1. **Domínio**: Contém a lógica de negócio central da aplicação. É independente de qualquer tecnologia ou framework específico.
-2. **Portas**: Interfaces que definem como a aplicação se comunica com o mundo externo (entrada) e como o mundo externo se comunica com a aplicação (saída).
-3. **Adaptadores**: Implementações concretas das portas. Eles adaptam a comunicação entre o domínio e as tecnologias externas, como bancos de dados, APIs, interfaces de usuário, etc.
+1. Domínio: Contém a lógica de negócio central da aplicação. É independente de qualquer tecnologia ou framework específico.
+2. Portos: Interfaces que definem como a aplicação se comunica com o mundo externo (entrada) e como o mundo externo se comunica com a aplicação (saída).
+3. Adaptadores: Implementações concretas das portas. Eles adaptam a comunicação entre o domínio e as tecnologias externas, como bancos de dados, APIs, interfaces de usuário, etc.
 
 #### Estrutura
 
@@ -140,9 +140,9 @@ A arquitetura hexagonal é geralmente representada como um hexágono, onde:
 
 #### Benefícios
 
-* **Isolamento da Lógica de Negócio**: A lógica de negócio é isolada de detalhes de implementação, facilitando mudanças e testes.
-* **Facilidade de Testes**: Como a lógica de negócio é independente de infraestrutura, testes unitários podem ser realizados sem a necessidade de dependências externas.
-* **Flexibilidade**: Facilita a troca de tecnologias e frameworks sem impactar a lógica de negócio.
+* Isolamento da Lógica de Negócio: A lógica de negócio é isolada de detalhes de implementação, facilitando mudanças e testes.
+* Facilidade de Testes: Como a lógica de negócio é independente de infraestrutura, testes unitários podem ser realizados sem a necessidade de dependências externas.
+* Flexibilidade: Facilita a troca de tecnologias e frameworks sem impactar a lógica de negócio.
 
 
 
@@ -168,26 +168,6 @@ A arquitetura hexagonal é geralmente representada como um hexágono, onde:
 
 ```
 
-1. **Domain** (Centro do Hexágono)  
-    - model
-    - ports
-      - inbound
-      - outbound
-  
-2. **Portas** (Bordas do Hexágono)  
-- Interfaces que definem a comunicação com o mundo externo.
-
-3. **Adaptadores** (Fora do Hexágono)
-   - application
-     - controller
-     - request
-     - response
-   - infrastructure
-     - config
-     - entity
-     - integration
-     - mapper
-     - repository
 
 Hexagonal:<img src="./docs/Hexagonal.png" alt="Hexagonal"></img>
 
@@ -195,3 +175,8 @@ Hexagonal:<img src="./docs/Hexagonal.png" alt="Hexagonal"></img>
 Exemplo de Implementação:<img src="./docs/Hexagonal-impl.png" alt="Hexagonal Impl"></img>
 
 Essa estrutura de pacotes e a separação clara de responsabilidades ajudam a manter o código organizado e modular, facilitando a manutenção e evolução do sistema.
+
+
+
+
+
