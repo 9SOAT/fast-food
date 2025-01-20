@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "7d5fb001-7cb4-41a3-8f5e-8bfea0a5b500",
-		"name": "FIAP-request",
+		"_postman_id": "cc2e635b-cfed-401a-9fbf-a6752059db5f",
+		"name": "OpenAPI definition",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12292145"
 	},
@@ -77,7 +77,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"price\": \"<number>\",\n  \"category\": \"DRINK\",\n  \"status\": \"INACTIVE\"\n}"
+									"body": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"price\": \"<number>\",\n  \"category\": \"DRINK\",\n  \"status\": \"ACTIVE\"\n}"
 								}
 							]
 						},
@@ -97,7 +97,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"category\": \"SANDWICH\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"price\": \"<number>\"\n}",
+									"raw": "{\n  \"category\": \"DESSERT\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"price\": \"<number>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -140,7 +140,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"category\": \"SANDWICH\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"price\": \"<number>\"\n}",
+											"raw": "{\n  \"category\": \"DESSERT\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"price\": \"<number>\"\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -174,7 +174,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"price\": \"<number>\",\n  \"category\": \"DRINK\",\n  \"status\": \"INACTIVE\"\n}"
+									"body": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"price\": \"<number>\",\n  \"category\": \"DRINK\",\n  \"status\": \"ACTIVE\"\n}"
 								}
 							]
 						},
@@ -245,7 +245,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/products?page=<integer>&size=<integer>&status=ACTIVE",
+							"raw": "{{baseUrl}}/products?page=<integer>&size=<integer>&status=INACTIVE",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -265,7 +265,7 @@
 								},
 								{
 									"key": "status",
-									"value": "ACTIVE",
+									"value": "INACTIVE",
 									"description": "(Required) "
 								}
 							]
@@ -283,7 +283,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/products?page=<integer>&size=<integer>&status=ACTIVE",
+									"raw": "{{baseUrl}}/products?page=<integer>&size=<integer>&status=INACTIVE",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -303,7 +303,7 @@
 										},
 										{
 											"key": "status",
-											"value": "ACTIVE",
+											"value": "INACTIVE",
 											"description": "(Required) "
 										}
 									]
@@ -319,7 +319,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"content\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"images\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"price\": \"<number>\",\n      \"category\": \"SANDWICH\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"images\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"price\": \"<number>\",\n      \"category\": \"DESSERT\",\n      \"status\": \"ACTIVE\"\n    }\n  ],\n  \"pageNumber\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\"\n}"
+							"body": "{\n  \"content\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"images\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"price\": \"<number>\",\n      \"category\": \"DRINK\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"images\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"price\": \"<number>\",\n      \"category\": \"DESSERT\",\n      \"status\": \"INACTIVE\"\n    }\n  ],\n  \"pageNumber\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\"\n}"
 						}
 					]
 				},
@@ -339,7 +339,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"category\": \"SANDWICH\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"price\": \"<number>\"\n}",
+							"raw": "{\n  \"category\": \"DESSERT\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"price\": \"<number>\"\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -374,7 +374,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"category\": \"SANDWICH\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"price\": \"<number>\"\n}",
+									"raw": "{\n  \"category\": \"DESSERT\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"price\": \"<number>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -402,7 +402,82 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"price\": \"<number>\",\n  \"category\": \"DRINK\",\n  \"status\": \"INACTIVE\"\n}"
+							"body": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"price\": \"<number>\",\n  \"category\": \"DRINK\",\n  \"status\": \"ACTIVE\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "webhook",
+			"item": [
+				{
+					"name": "webhook Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transactionId\": \"<string>\",\n  \"action\": \"UPDATED\",\n  \"status\": \"APPROVED\",\n  \"dateCreated\": \"<dateTime>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/webhook",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"webhook"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"transactionId\": \"<string>\",\n  \"action\": \"UPDATED\",\n  \"status\": \"APPROVED\",\n  \"dateCreated\": \"<dateTime>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/webhook",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"webhook"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
 						}
 					]
 				}
@@ -564,65 +639,88 @@
 							"name": "status",
 							"item": [
 								{
-									"name": "transition",
-									"item": [
+									"name": "update Order Status",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": \"READY_FOR_PICKUP\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/orders/:id/status",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":id",
+												"status"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": [
 										{
-											"name": "update Order Status",
-											"request": {
+											"name": "OK",
+											"originalRequest": {
 												"method": "PATCH",
-												"header": [],
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"status\": \"READY_FOR_PICKUP\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
 												"url": {
-													"raw": "{{baseUrl}}/orders/:id/status/transition",
+													"raw": "{{baseUrl}}/orders/:id/status",
 													"host": [
 														"{{baseUrl}}"
 													],
 													"path": [
 														"orders",
 														":id",
-														"status",
-														"transition"
+														"status"
 													],
 													"variable": [
 														{
-															"key": "id",
-															"value": "<long>",
-															"description": "(Required) "
+															"key": "id"
 														}
 													]
 												}
 											},
-											"response": [
-												{
-													"name": "OK",
-													"originalRequest": {
-														"method": "PATCH",
-														"header": [],
-														"url": {
-															"raw": "{{baseUrl}}/orders/:id/status/transition",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"orders",
-																":id",
-																"status",
-																"transition"
-															],
-															"variable": [
-																{
-																	"key": "id"
-																}
-															]
-														}
-													},
-													"status": "OK",
-													"code": 200,
-													"_postman_previewlanguage": "text",
-													"header": [],
-													"cookie": [],
-													"body": ""
-												}
-											]
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
 										}
 									]
 								}
@@ -710,7 +808,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n  \"content\": [\n    {\n      \"id\": \"<long>\",\n      \"cartId\": \"<long>\",\n      \"consumerId\": \"<long>\",\n      \"payment\": {\n        \"qrCode\": \"<string>\",\n        \"type\": \"PIX\",\n        \"amount\": \"<number>\",\n        \"status\": \"REJECTED\",\n        \"approvedAt\": \"<dateTime>\"\n      },\n      \"items\": [\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"SIDE_DISH\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        },\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"SANDWICH\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        }\n      ],\n      \"status\": \"READY_FOR_PICKUP\",\n      \"total\": \"<number>\",\n      \"waitingMinutes\": \"<long>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"cartId\": \"<long>\",\n      \"consumerId\": \"<long>\",\n      \"payment\": {\n        \"qrCode\": \"<string>\",\n        \"type\": \"PIX\",\n        \"amount\": \"<number>\",\n        \"status\": \"APPROVED\",\n        \"approvedAt\": \"<dateTime>\"\n      },\n      \"items\": [\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"DRINK\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        },\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"SIDE_DISH\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        }\n      ],\n      \"status\": \"FINISHED\",\n      \"total\": \"<number>\",\n      \"waitingMinutes\": \"<long>\"\n    }\n  ],\n  \"pageNumber\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\"\n}"
+									"body": "{\n  \"content\": [\n    {\n      \"id\": \"<long>\",\n      \"cartId\": \"<long>\",\n      \"consumerId\": \"<long>\",\n      \"payment\": {\n        \"qrCode\": \"<string>\",\n        \"type\": \"PIX\",\n        \"amount\": \"<number>\",\n        \"status\": \"REJECTED\",\n        \"approvedAt\": \"<dateTime>\"\n      },\n      \"items\": [\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"SIDE_DISH\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        },\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"SANDWICH\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        }\n      ],\n      \"status\": \"WAITING_PAYMENT\",\n      \"total\": \"<number>\",\n      \"waitingMinutes\": \"<long>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"cartId\": \"<long>\",\n      \"consumerId\": \"<long>\",\n      \"payment\": {\n        \"qrCode\": \"<string>\",\n        \"type\": \"PIX\",\n        \"amount\": \"<number>\",\n        \"status\": \"APPROVED\",\n        \"approvedAt\": \"<dateTime>\"\n      },\n      \"items\": [\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"DESSERT\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        },\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"DESSERT\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        }\n      ],\n      \"status\": \"READY_FOR_PICKUP\",\n      \"total\": \"<number>\",\n      \"waitingMinutes\": \"<long>\"\n    }\n  ],\n  \"pageNumber\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\"\n}"
 								}
 							]
 						}
@@ -727,7 +825,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/orders?page=<integer>&size=<integer>&status=IN_PREPARATION",
+							"raw": "{{baseUrl}}/orders?page=<integer>&size=<integer>&status=READY_FOR_PREPARATION",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -747,7 +845,7 @@
 								},
 								{
 									"key": "status",
-									"value": "IN_PREPARATION",
+									"value": "READY_FOR_PREPARATION",
 									"description": "(Required) "
 								}
 							]
@@ -765,7 +863,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/orders?page=<integer>&size=<integer>&status=IN_PREPARATION",
+									"raw": "{{baseUrl}}/orders?page=<integer>&size=<integer>&status=READY_FOR_PREPARATION",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -785,7 +883,7 @@
 										},
 										{
 											"key": "status",
-											"value": "IN_PREPARATION",
+											"value": "READY_FOR_PREPARATION",
 											"description": "(Required) "
 										}
 									]
@@ -801,7 +899,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"content\": [\n    {\n      \"id\": \"<long>\",\n      \"cartId\": \"<long>\",\n      \"consumerId\": \"<long>\",\n      \"payment\": {\n        \"qrCode\": \"<string>\",\n        \"type\": \"PIX\",\n        \"amount\": \"<number>\",\n        \"status\": \"REJECTED\",\n        \"approvedAt\": \"<dateTime>\"\n      },\n      \"items\": [\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"SIDE_DISH\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        },\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"SANDWICH\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        }\n      ],\n      \"status\": \"READY_FOR_PICKUP\",\n      \"total\": \"<number>\",\n      \"waitingMinutes\": \"<long>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"cartId\": \"<long>\",\n      \"consumerId\": \"<long>\",\n      \"payment\": {\n        \"qrCode\": \"<string>\",\n        \"type\": \"PIX\",\n        \"amount\": \"<number>\",\n        \"status\": \"APPROVED\",\n        \"approvedAt\": \"<dateTime>\"\n      },\n      \"items\": [\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"DRINK\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        },\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"SIDE_DISH\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        }\n      ],\n      \"status\": \"FINISHED\",\n      \"total\": \"<number>\",\n      \"waitingMinutes\": \"<long>\"\n    }\n  ],\n  \"pageNumber\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\"\n}"
+							"body": "{\n  \"content\": [\n    {\n      \"id\": \"<long>\",\n      \"cartId\": \"<long>\",\n      \"consumerId\": \"<long>\",\n      \"payment\": {\n        \"qrCode\": \"<string>\",\n        \"type\": \"PIX\",\n        \"amount\": \"<number>\",\n        \"status\": \"REJECTED\",\n        \"approvedAt\": \"<dateTime>\"\n      },\n      \"items\": [\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"SIDE_DISH\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        },\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"SANDWICH\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        }\n      ],\n      \"status\": \"WAITING_PAYMENT\",\n      \"total\": \"<number>\",\n      \"waitingMinutes\": \"<long>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"cartId\": \"<long>\",\n      \"consumerId\": \"<long>\",\n      \"payment\": {\n        \"qrCode\": \"<string>\",\n        \"type\": \"PIX\",\n        \"amount\": \"<number>\",\n        \"status\": \"APPROVED\",\n        \"approvedAt\": \"<dateTime>\"\n      },\n      \"items\": [\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"DESSERT\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        },\n        {\n          \"productId\": \"<long>\",\n          \"productName\": \"<string>\",\n          \"productCategory\": \"DESSERT\",\n          \"quantity\": \"<integer>\",\n          \"price\": \"<number>\",\n          \"subtotal\": \"<number>\"\n        }\n      ],\n      \"status\": \"READY_FOR_PICKUP\",\n      \"total\": \"<number>\",\n      \"waitingMinutes\": \"<long>\"\n    }\n  ],\n  \"pageNumber\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\"\n}"
 						}
 					]
 				}
@@ -1130,7 +1228,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"id\": \"<long>\",\n  \"cartId\": \"<long>\",\n  \"consumerId\": \"<long>\",\n  \"payment\": {\n    \"qrCode\": \"<string>\",\n    \"type\": \"PIX\",\n    \"amount\": \"<number>\",\n    \"status\": \"PENDING\",\n    \"approvedAt\": \"<dateTime>\"\n  },\n  \"items\": [\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"productCategory\": \"SANDWICH\",\n      \"quantity\": \"<integer>\",\n      \"price\": \"<number>\",\n      \"subtotal\": \"<number>\"\n    },\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"productCategory\": \"DESSERT\",\n      \"quantity\": \"<integer>\",\n      \"price\": \"<number>\",\n      \"subtotal\": \"<number>\"\n    }\n  ],\n  \"status\": \"READY_FOR_PICKUP\",\n  \"total\": \"<number>\",\n  \"waitingMinutes\": \"<long>\"\n}"
+							"body": "{\n  \"id\": \"<long>\",\n  \"cartId\": \"<long>\",\n  \"consumerId\": \"<long>\",\n  \"payment\": {\n    \"qrCode\": \"<string>\",\n    \"type\": \"PIX\",\n    \"amount\": \"<number>\",\n    \"status\": \"APPROVED\",\n    \"approvedAt\": \"<dateTime>\"\n  },\n  \"items\": [\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"productCategory\": \"SANDWICH\",\n      \"quantity\": \"<integer>\",\n      \"price\": \"<number>\",\n      \"subtotal\": \"<number>\"\n    },\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"productCategory\": \"SIDE_DISH\",\n      \"quantity\": \"<integer>\",\n      \"price\": \"<number>\",\n      \"subtotal\": \"<number>\"\n    }\n  ],\n  \"status\": \"WAITING_PAYMENT\",\n  \"total\": \"<number>\",\n  \"waitingMinutes\": \"<long>\"\n}"
 						}
 					]
 				}
@@ -1240,7 +1338,7 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n  \"id\": \"<long>\",\n  \"consumerId\": \"<long>\",\n  \"items\": [\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"DRINK\"\n    },\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"SANDWICH\"\n    }\n  ],\n  \"total\": \"<number>\"\n}"
+											"body": "{\n  \"id\": \"<long>\",\n  \"consumerId\": \"<long>\",\n  \"items\": [\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"DRINK\"\n    },\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"DESSERT\"\n    }\n  ],\n  \"total\": \"<number>\"\n}"
 										}
 									]
 								}
@@ -1316,7 +1414,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n  \"id\": \"<long>\",\n  \"consumerId\": \"<long>\",\n  \"items\": [\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"DRINK\"\n    },\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"SANDWICH\"\n    }\n  ],\n  \"total\": \"<number>\"\n}"
+									"body": "{\n  \"id\": \"<long>\",\n  \"consumerId\": \"<long>\",\n  \"items\": [\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"DRINK\"\n    },\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"DESSERT\"\n    }\n  ],\n  \"total\": \"<number>\"\n}"
 								}
 							]
 						}
@@ -1401,7 +1499,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"id\": \"<long>\",\n  \"consumerId\": \"<long>\",\n  \"items\": [\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"DRINK\"\n    },\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"SANDWICH\"\n    }\n  ],\n  \"total\": \"<number>\"\n}"
+							"body": "{\n  \"id\": \"<long>\",\n  \"consumerId\": \"<long>\",\n  \"items\": [\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"DRINK\"\n    },\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"DESSERT\"\n    }\n  ],\n  \"total\": \"<number>\"\n}"
 						}
 					]
 				}
@@ -1478,7 +1576,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"price\": \"<number>\",\n  \"category\": \"DRINK\",\n  \"status\": \"INACTIVE\"\n}"
+									"body": "{\n  \"id\": \"<long>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"images\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"price\": \"<number>\",\n  \"category\": \"DRINK\",\n  \"status\": \"ACTIVE\"\n}"
 								}
 							]
 						}
@@ -1495,7 +1593,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/catalog?category=DRINK&page=<integer>&size=<integer>",
+							"raw": "{{baseUrl}}/catalog?category=SIDE_DISH&page=<integer>&size=<integer>",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1505,7 +1603,7 @@
 							"query": [
 								{
 									"key": "category",
-									"value": "DRINK",
+									"value": "SIDE_DISH",
 									"description": "(Required) "
 								},
 								{
@@ -1533,7 +1631,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/catalog?category=DRINK&page=<integer>&size=<integer>",
+									"raw": "{{baseUrl}}/catalog?category=SIDE_DISH&page=<integer>&size=<integer>",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -1543,7 +1641,7 @@
 									"query": [
 										{
 											"key": "category",
-											"value": "DRINK",
+											"value": "SIDE_DISH",
 											"description": "(Required) "
 										},
 										{
@@ -1569,102 +1667,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n  \"content\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"images\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"price\": \"<number>\",\n      \"category\": \"SANDWICH\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"images\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"price\": \"<number>\",\n      \"category\": \"DESSERT\",\n      \"status\": \"ACTIVE\"\n    }\n  ],\n  \"pageNumber\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\"\n}"
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "webhook",
-			"item": [
-				{
-					"name": "Webhook Pagamento",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"transactionId\": \"<string>\",\n  \"action\": \"<string>\",\n  \"status\": \"<string>\",\n  \"dateCreated\": \"<dateTime>\"\n}",
-							"options": {
-								"raw": {
-									"headerFamily": "json",
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/webhook",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"webhook"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Created",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "*/*"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"productId\": \"<long>\",\n  \"quantity\": \"<integer>\"\n}",
-									"options": {
-										"raw": {
-											"headerFamily": "json",
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/carts/:cartId/items",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"carts",
-										":cartId",
-										"items"
-									],
-									"variable": [
-										{
-											"key": "cartId"
-										}
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "*/*"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"id\": \"<long>\",\n  \"consumerId\": \"<long>\",\n  \"items\": [\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"DRINK\"\n    },\n    {\n      \"productId\": \"<long>\",\n      \"productName\": \"<string>\",\n      \"price\": \"<number>\",\n      \"quantity\": \"<integer>\",\n      \"subTotal\": \"<number>\",\n      \"category\": \"SANDWICH\"\n    }\n  ],\n  \"total\": \"<number>\"\n}"
+							"body": "{\n  \"content\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"images\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"price\": \"<number>\",\n      \"category\": \"DRINK\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"images\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"price\": \"<number>\",\n      \"category\": \"DESSERT\",\n      \"status\": \"INACTIVE\"\n    }\n  ],\n  \"pageNumber\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"totalElements\": \"<long>\",\n  \"totalPages\": \"<integer>\"\n}"
 						}
 					]
 				}
