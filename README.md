@@ -76,6 +76,7 @@ Como parte da documentação, foram elaborados alguns artefatos para auxiliar no
 - Requests (API)
   - Swagger: http://localhost:8080/swagger-ui/index.html
   - [Postman para importação](FIAP-request.postman_collection.json)
+- Video explicativo da aplicação: https://www.youtube.com/watch?v=EIm4ZCKEP04
 
 #### Guia para execução das APIs
 **1. Cadastro do Catálogo de Produtos:**
