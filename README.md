@@ -37,25 +37,31 @@ Neste projeto são utilizadas as seguintes tecnologias:
 
 ## 🛠️ Execução Local
 
-Pré-requisitos: 
+### Docker Compose
+
+Pré-requisitos:
 - Ter o Docker e Docker Compose instalados
 
-### Docker Compose
 ```shell
-docker compose -p fast-food up -d
+  docker compose -p fast-food up -d
+```
+
+### Kubernetes
+
+Pré-requisitos: 
+- Ter o Kubernetes instalado e configurado localmente.
+- Ter o kubectl instalado e configurado.
+
+#### kubectl
+
+```shell
+  kubectl apply -f k8s/
 ```
 
 Para acessar a aplicação, execute o comando:
 
 ```shell
-  kubectl port-forward svc/fast-food 8080:8080
-```
-
-#### Helm
-- Ter o Helm instalado.
-
-```shell
-  helm install fast-food ./helm/fast-food
+  kubectl port-forward svc/fast-food-svc 8080:8080
 ```
 
 ## 📖 Documentação
@@ -69,7 +75,50 @@ Como parte da documentação, foram elaborados alguns artefatos para auxiliar no
   - [Diagrama](/docs/k8s/sk8.png)
 - Requests (API)
   - Swagger: http://localhost:8080/swagger-ui/index.html
-  - [Postman para importar] - FALTA
+  - [Postman para importação](FIAP-request.postman_collection.json)
+
+#### Guia para execução das APIs
+**1. Cadastro do Catálogo de Produtos:**
+Endpoint: POST '[...]/products'
+Descrição: Utiliza este endpoint para cadastrar todos os itens que serão vendidos no seu estabelecimento.
+
+**2. Cadastro de Clientes:**
+Endpoint: POST '[...]/consumers'
+Descrição: Utilize este endpoint para cadastrar os clientes que farão pedidos.
+
+**3. Criação de um Carrinho:**
+Endpoint: POST '[...]/carts'
+Descrição: Crie um novo carrinho para cada cliente que iniciar um pedido.
+Observação: Este endpoint retorna um ID único para o carrinho criado, que será utilizado nas próximas etapas.
+
+**4. Adição de Itens ao Carrinho:**
+Endpoint: POST '[...]/carts/<cartId>/items'
+Descrição: Adicione os produtos escolhidos pelo cliente ao carrinho.
+Observação: Utilize o ID do carrinho retornado na etapa anterior e especifique a quantidade de cada item.
+
+**5. Checkout do Carrinho:**
+Endpoint: POST '[...]/checkout'
+Descrição: Finalize o pedido e gere um número de pedido único.
+
+**6. Verificação do Status do Pagamento:**
+Endpoint: GET '[...]/orders/:id/payment/status'
+Descrição: Verifique o status atual do pagamento do pedido.
+Observação: Utilize o ID do pedido para consultar o status. Os possíveis status são: PENDING, APPROVED, REJECTED.
+
+**7. Simulação de Pagamento (Webhook):**
+Endpoint: POST '[...]/webhook'
+Descrição: Simule uma notificação de pagamento aprovado.
+Observação: Envie uma requisição POST para este endpoint com o status "APPROVED" para marcar o pagamento como concluído.
+
+**8. Acompanhamento do Pedido:**
+Endpoint: GET '[...]/orders/list?page=&size='
+Descrição: Visualize a lista de pedidos, ordenados por status: Pronto, Em Preparação e Recebido.
+Observação: Utilize os parâmetros "page" e "size" para paginar os resultados.
+
+**9. Atualização do Status do Pedido:**
+Endpoint: PATCH '[...]/orders/:id/status'
+Descrição: Atualize o status do pedido conforme ele avança no processo de produção.
+Observação: Os possíveis status são: WAITING_PAYMENT, READY_FOR_PREPARATION, IN_PREPARATION, READY_FOR_PICKUP, FINISHED.
 
 ## 🍨 Arquitetura Hexagonal
 
