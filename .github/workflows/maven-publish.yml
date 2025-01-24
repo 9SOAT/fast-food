@@ -33,6 +33,9 @@ jobs:
       - name: Run Maven tests
         run: mvn test
 
+      - name: Create dir
+        run: mkdir -p target/site/jacoco
+
       - name: Generate JaCoCo Badge
         id: jacoco
         uses: cicirello/jacoco-badge-generator@v2.0.1
