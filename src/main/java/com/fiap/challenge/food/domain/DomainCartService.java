@@ -54,7 +54,7 @@ public class DomainCartService implements CartService {
             if (!product.getCategory().isSubsequent(latestCategory)) {
                 log.warn("Invalid addition sequence of items. cartId={} productId={} latestCategory={} productCategory={}",
                     cartId, productId, latestCategory, product.getCategory());
-                throw new UnprocessableEntityException("Invalid addition sequence of items","INVALID_ITEM_SEQUENCE");
+                throw new UnprocessableEntityException("Invalid addition sequence of items", "INVALID_ITEM_SEQUENCE");
             }
         });
 
@@ -72,10 +72,5 @@ public class DomainCartService implements CartService {
     private Product getProduct(Long productId) {
         return productRepository.findById(productId)
             .orElseThrow(() -> new NotFoundException(String.format("Product not found %d", productId), "PRODUCT_NOT_FOUND"));
-    }
-
-    private void teste(Boolean param) {
-        if (param)
-            log.info("teste");
     }
 }
