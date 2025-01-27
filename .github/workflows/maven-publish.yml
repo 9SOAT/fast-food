@@ -38,7 +38,7 @@ jobs:
     - name: Run Maven tests
       run: mvn test
 
-  code-analisys:
+  code-analysis:
     name: Sonar Code Analysis
     runs-on: ubuntu-latest
     needs: unit-test
@@ -74,6 +74,7 @@ jobs:
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=com.fiap.challenge:fast-food
 
   build-image:
+    needs: code-analysis
     name: Build Docker Image
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
