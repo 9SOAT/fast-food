@@ -10,6 +10,15 @@ on:
     types: [ opened, synchronize, reopened ]
 
 jobs:
+  codacy-analysis-cli:
+    name: Static Coda Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@master
+
   unit-test:
     name: Unit Tests
     runs-on: ubuntu-latest
