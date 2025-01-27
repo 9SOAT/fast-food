@@ -10,8 +10,8 @@ on:
     types: [ opened, synchronize, reopened ]
 
 jobs:
-  codacy-analysis-cli:
-    name: Static Coda Analysis
+  static-code-analysis:
+    name: Static Code Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,6 +21,7 @@ jobs:
 
   unit-test:
     name: Unit Tests
+    needs: static-code-analysis
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
