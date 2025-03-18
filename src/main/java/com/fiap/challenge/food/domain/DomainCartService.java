@@ -27,15 +27,7 @@ public class DomainCartService implements CartService {
     @Override
     public Cart create(Long consumerId) {
         log.info("Creating cart for consumerId={}", consumerId);
-        if (consumerId != null) validateConsumer(consumerId);
         return cartRepository.save(new Cart(consumerId));
-    }
-
-    private void validateConsumer(Long consumerId) {
-        if (!consumerRepository.existsById(consumerId)) {
-            log.warn("Consumer not found id={}", consumerId);
-            throw new NotFoundException(String.format("Consumer not found id=%d", consumerId), "CONSUMER_NOT_FOUND");
-        }
     }
 
     @Override

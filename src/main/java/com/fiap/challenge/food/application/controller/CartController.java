@@ -1,19 +1,13 @@
 package com.fiap.challenge.food.application.controller;
 
 import com.fiap.challenge.food.application.request.CartItemMutation;
-import com.fiap.challenge.food.application.request.CartMutation;
 import com.fiap.challenge.food.application.response.CartView;
 import com.fiap.challenge.food.domain.model.cart.Cart;
 import com.fiap.challenge.food.domain.ports.inbound.CartService;
 import com.fiap.challenge.food.infrastructure.mapper.ViewMapper;
+import com.fiap.challenge.food.infrastructure.security.JwtUtil;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -31,8 +25,9 @@ public class CartController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public CartView create(@RequestBody CartMutation cartMutation) {
-        Cart cart = cartService.create(cartMutation.consumerId());
+    public CartView create(@RequestHeader(value = "Authorization", required = false) String authHeader) {
+        Long consumerId = JwtUtil.extractConsumerIdFromToken(authHeader);
+        Cart cart = cartService.create(consumerId);
         return viewMapper.toCartView(cart);
     }
 
