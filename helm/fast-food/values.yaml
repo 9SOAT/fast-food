@@ -105,3 +105,6 @@ secrets:
   - name: fast-food-mercado-pago
     data:
       accessToken: "TEST-123456789-1234-1234-1234-123456789012"
+  - name: jwt-secret-key
+    data:
+      accessToken: "c66b463c-376f-452b-8a7e-b17491518828"

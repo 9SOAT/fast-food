@@ -72,6 +72,11 @@ spec:
                   secretKeyRef:
                       name: secrets
                       key: MERCADO_PAGO_ACCESS_TOKEN
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: JWT_SECRET_KEY_UUID
       restartPolicy: Always
 
       
