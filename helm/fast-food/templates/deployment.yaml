@@ -81,5 +81,5 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret-key
-                  key: jwtUuid
+                  key: JWT_SECRET_KEY
       restartPolicy: {{ .Values.restartPolicy }}
