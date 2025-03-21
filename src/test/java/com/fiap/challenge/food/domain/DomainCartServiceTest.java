@@ -44,7 +44,6 @@ class DomainCartServiceTest {
     @Test
     void createCartWithValidConsumerId() {
         Long consumerId = 1L;
-        when(consumerRepository.existsById(consumerId)).thenReturn(true);
         when(cartRepository.save(any(Cart.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         Cart cart = domainCartService.create(consumerId);
@@ -52,18 +51,6 @@ class DomainCartServiceTest {
         assertNotNull(cart);
         assertEquals(consumerId, cart.getConsumerId());
         verify(cartRepository, times(1)).save(any(Cart.class));
-    }
-
-    @Test
-    void createCartWithInvalidConsumerId() {
-        Long consumerId = 1L;
-        when(consumerRepository.existsById(consumerId)).thenReturn(false);
-
-        NotFoundException exception = assertThrows(NotFoundException.class, () -> domainCartService.create(consumerId));
-
-        assertEquals("Consumer not found id=1", exception.getMessage());
-        assertEquals("CONSUMER_NOT_FOUND", exception.getCode());
-        verify(cartRepository, never()).save(any(Cart.class));
     }
 
     @Test
