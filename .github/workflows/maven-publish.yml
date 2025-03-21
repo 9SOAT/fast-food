@@ -9,6 +9,10 @@ on:
   pull_request:
     types: [ opened, synchronize, reopened ]
 
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+
 jobs:
   static-code-analysis:
     name: Static Code Analysis
