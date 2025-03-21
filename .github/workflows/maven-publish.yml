@@ -141,8 +141,8 @@ jobs:
 
       - name: Deployment no EKS
         env:
-          IMAGE_URI=${{needs.build-image.outputs.imageUri}}
-          DEPLOYMENT_NAME=${{ secrets.DEPLOYMENT_NAME }}
+          IMAGE_URI: ${{needs.build-image.outputs.imageUri}}
+          DEPLOYMENT_NAME: ${{ secrets.DEPLOYMENT_NAME }}
         run: |
           kubectl set image k8s/$DEPLOYMENT_NAME $DEPLOYMENT_NAME=$IMAGE_URI
           kubectl rollout status k8s/$DEPLOYMENT_NAME
