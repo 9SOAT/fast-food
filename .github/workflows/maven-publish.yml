@@ -72,3 +72,62 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=com.fiap.challenge:fast-food
+
+  build-image:
+    name: Build Docker Image
+    needs: code-analysis
+    runs-on: ubuntu-latest
+
+    # Map a step output to a job output
+    outputs:
+      imageUri: ${{ steps.ecr_execution.outputs.imageUri }}
+
+#    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4 # More information on this action can be found below in the 'AWS Credentials' section
+        with:
+          role-to-assume: ${{secrets.AWS_ROLE}}
+          aws-region: ${{secrets.AWS_REGION}}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push docker image to Amazon ECR
+        id: ecr_execution
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: fast-food
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          echo "imageUri=$REGISTRY/$REPOSITORY:$IMAGE_TAG" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    name: Deploy to Amazon EKS
+    needs: build-image
+    runs-on: ubuntu-latest
+
+#    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{secrets.AWS_ROLE}}
+          aws-region: ${{secrets.AWS_REGION}}
+
+      - name: Deployment no EKS
+        env:
+          IMAGE_URI=${{needs.build-image.outputs.imageUri}}
+          DEPLOYMENT_NAME=${{ secrets.DEPLOYMENT_NAME }}
+        run: |
+          kubectl set image k8s/$DEPLOYMENT_NAME $DEPLOYMENT_NAME=$IMAGE_URI
+          kubectl rollout status k8s/$DEPLOYMENT_NAME
