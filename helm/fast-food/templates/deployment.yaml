@@ -77,4 +77,9 @@ spec:
                 secretKeyRef:
                   name: fast-food-mercado-pago
                   key: accessToken
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret-key
+                  key: JWT_SECRET_KEY
       restartPolicy: {{ .Values.restartPolicy }}

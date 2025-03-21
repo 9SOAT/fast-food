@@ -7,6 +7,7 @@ import com.fiap.challenge.food.domain.model.cart.Cart;
 import com.fiap.challenge.food.domain.ports.inbound.CartService;
 import com.fiap.challenge.food.fixture.CartViewFixture;
 import com.fiap.challenge.food.infrastructure.mapper.ViewMapper;
+import com.fiap.challenge.food.infrastructure.security.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +34,9 @@ class CartControllerTest {
     @Mock
     private ViewMapper viewMapperMock;
 
+    @Mock
+    private JwtUtil jwtUtilMock;
+
     @InjectMocks
     private CartController cartController;
 
@@ -47,12 +51,12 @@ class CartControllerTest {
 
     @Test
     void createCartSuccessfully() throws Exception {
-        CartMutation cartMutation = new CartMutation(1L);
         Cart cart = new Cart();
         CartView cartView = CartViewFixture.aEmptyCartView();
 
         when(cartServiceMock.create(1L)).thenReturn(cart);
         when(viewMapperMock.toCartView(cart)).thenReturn(cartView);
+        when(jwtUtilMock.extractConsumerIdFromToken(any())).thenReturn(1L);
 
         ResultActions resultActions = mockMvc.perform(post("/carts")
             .contentType(MediaType.APPLICATION_JSON)
@@ -147,6 +151,7 @@ class CartControllerTest {
 
     @Test
     void createCartWithoutConsumerId() throws Exception {
+        when(jwtUtilMock.extractConsumerIdFromToken(any())).thenReturn(null);
         mockMvc.perform(post("/carts")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{}")
