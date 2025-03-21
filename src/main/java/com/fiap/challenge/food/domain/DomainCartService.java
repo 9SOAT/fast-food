@@ -46,7 +46,7 @@ public class DomainCartService implements CartService {
             if (!product.getCategory().isSubsequent(latestCategory)) {
                 log.warn("Invalid addition sequence of items. cartId={} productId={} latestCategory={} productCategory={}",
                     cartId, productId, latestCategory, product.getCategory());
-                throw new UnprocessableEntityException("Invalid addition sequence of items","INVALID_ITEM_SEQUENCE");
+                throw new UnprocessableEntityException("Invalid addition sequence of items", "INVALID_ITEM_SEQUENCE");
             }
         });
 
