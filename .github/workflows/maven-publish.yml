@@ -146,8 +146,8 @@ jobs:
 
       - name: Apply deployment to EKS
         run: |
-          kubectl delete -f k8s
+          kubectl apply -f k8s
 
       - name: Check rollout status
         run: |
-          kubectl rollout status deployment/fast-food 
+          kubectl rollout status deployment/fast-food-deployment
