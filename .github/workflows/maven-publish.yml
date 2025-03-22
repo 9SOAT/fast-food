@@ -146,7 +146,7 @@ jobs:
 
       - name: Apply deployment to EKS
         run: |
-          kubectl apply -f k8s
+          kubectl delete -f k8s
 
       - name: Check rollout status
         run: |
