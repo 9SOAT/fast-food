@@ -139,10 +139,15 @@ jobs:
         run: |
           aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
 
-      - name: Deployment no EKS
-        env:
-          IMAGE_URI: ${{needs.build-image.outputs.imageUri}}
-          DEPLOYMENT_NAME: ${{ secrets.DEPLOYMENT_NAME }}
+
+      - name: Update deployment manifest
         run: |
-          kubectl set image k8s/$DEPLOYMENT_NAME $DEPLOYMENT_NAME=$IMAGE_URI
-          kubectl rollout status k8s/$DEPLOYMENT_NAME
+          sed -i -e "s/latest/${{ github.sha }}/g" k8s/deployments.yaml
+
+      - name: Apply deployment to EKS
+        run: |
+          kubectl apply -f k8s
+
+      - name: Check rollout status
+        run: |
+          kubectl rollout status deployment/fast-food 
