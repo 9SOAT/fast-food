@@ -32,6 +32,7 @@ spring:
 mercado-pago:
   accessToken: ${MERCADO_PAGO_ACCESS_TOKEN}
 
+
 management:
   endpoint:
     health:
