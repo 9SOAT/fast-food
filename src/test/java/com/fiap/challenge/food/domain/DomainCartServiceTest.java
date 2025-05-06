@@ -6,7 +6,6 @@ import com.fiap.challenge.food.domain.model.exception.NotFoundException;
 import com.fiap.challenge.food.domain.model.exception.UnprocessableEntityException;
 import com.fiap.challenge.food.domain.model.product.Product;
 import com.fiap.challenge.food.domain.ports.outbound.CartRepository;
-import com.fiap.challenge.food.domain.ports.outbound.ConsumerRepository;
 import com.fiap.challenge.food.domain.ports.outbound.ProductRepository;
 import com.fiap.challenge.food.fixture.CartFixture;
 import com.fiap.challenge.food.fixture.ProductFixture;
@@ -24,9 +23,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class DomainCartServiceTest {
-
-    @Mock
-    private ConsumerRepository consumerRepository;
 
     @Mock
     private ProductRepository productRepository;
