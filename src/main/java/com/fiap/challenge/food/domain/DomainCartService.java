@@ -7,19 +7,16 @@ import com.fiap.challenge.food.domain.model.exception.UnprocessableEntityExcepti
 import com.fiap.challenge.food.domain.model.product.Product;
 import com.fiap.challenge.food.domain.ports.inbound.CartService;
 import com.fiap.challenge.food.domain.ports.outbound.CartRepository;
-import com.fiap.challenge.food.domain.ports.outbound.ConsumerRepository;
 import com.fiap.challenge.food.domain.ports.outbound.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class DomainCartService implements CartService {
 
-    private final ConsumerRepository consumerRepository;
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
 
-    public DomainCartService(ConsumerRepository consumerRepository, ProductRepository productRepository, CartRepository cartRepository) {
-        this.consumerRepository = consumerRepository;
+    public DomainCartService(ProductRepository productRepository, CartRepository cartRepository) {
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
     }
