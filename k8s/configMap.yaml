@@ -6,4 +6,5 @@ data:
   POSTGRES_HOST: "postgres-cluster.cmjee0k0i9k7.us-east-1.rds.amazonaws.com"
   POSTGRES_PORT: "5432"
   POSTGRES_DATABASE: "gk_fiap"
+  API_FAST_FOOD_CATALOG: "fast-food-catalog-svc"
 

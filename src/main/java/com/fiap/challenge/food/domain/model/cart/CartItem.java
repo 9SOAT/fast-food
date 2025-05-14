@@ -1,6 +1,5 @@
 package com.fiap.challenge.food.domain.model.cart;
 
-import com.fiap.challenge.food.domain.model.product.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,9 +13,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CartItem {
     private Long id;
-    private Long productId;
+    private String productId;
     private String productName;
-    private ProductCategory category;
+    private String category;
     private BigDecimal price;
     private Integer quantity;
     private LocalDateTime createdAt = LocalDateTime.now();

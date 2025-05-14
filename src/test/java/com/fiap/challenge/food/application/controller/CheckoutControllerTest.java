@@ -69,7 +69,7 @@ class CheckoutControllerTest {
             .andExpect(jsonPath("$.items").isArray())
             .andExpect(jsonPath("$.items[0].productId").value(orderView.items().getFirst().productId()))
             .andExpect(jsonPath("$.items[0].productName").value(orderView.items().getFirst().productName()))
-            .andExpect(jsonPath("$.items[0].productCategory").value(orderView.items().getFirst().productCategory().name()))
+            .andExpect(jsonPath("$.items[0].productCategory").value(orderView.items().getFirst().productCategory()))
             .andExpect(jsonPath("$.items[0].quantity").value(orderView.items().getFirst().quantity()))
             .andExpect(jsonPath("$.items[0].price").value("20.0"))
             .andExpect(jsonPath("$.items[0].subtotal").value("40.0"))

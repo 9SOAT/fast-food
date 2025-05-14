@@ -14,7 +14,7 @@ import org.springframework.core.io.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 
-@Configuration
+//@Configuration
 class SpringDocConfig {
 
     @Value("classpath:openapi/api.yaml")

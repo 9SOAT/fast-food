@@ -18,7 +18,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -74,28 +77,27 @@ class CartControllerTest {
 
     @Test
     void createItemSuccessfully() throws Exception {
-        CartItemMutation itemMutation = new CartItemMutation(1L, 2);
         Cart cart = new Cart();
         CartView cartView = CartViewFixture.aCartViewWithSandwich();
 
-        when(cartServiceMock.addItem(1L, 1L, 2)).thenReturn(cart);
+        when(cartServiceMock.addItem(1L, "1", 2)).thenReturn(cart);
         when(viewMapperMock.toCartView(cart)).thenReturn(cartView);
 
         ResultActions resultActions = mockMvc.perform(post("/carts/1/items")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{\"productId\": 1, \"quantity\": 2}"));
+            .content("{\"productId\": \"1\", \"quantity\": 2}"));
 
         resultActions.andExpect(status().isCreated())
             .andExpect(jsonPath("$.id").value(1L))
             .andExpect(jsonPath("$.consumerId").value("08444331015"))
-            .andExpect(jsonPath("$.items[0].productId").value(1L))
+            .andExpect(jsonPath("$.items[0].productId").value("1"))
             .andExpect(jsonPath("$.items[0].productName").value("X-TUDO"))
             .andExpect(jsonPath("$.items[0].price").value("20.0"))
             .andExpect(jsonPath("$.items[0].quantity").value(2))
             .andExpect(jsonPath("$.items[0].subTotal").value("40.0"))
             .andExpect(jsonPath("$.total").value(40));
 
-        verify(cartServiceMock, times(1)).addItem(1L, 1L, 2);
+        verify(cartServiceMock, times(1)).addItem(1L, "1", 2);
         verify(viewMapperMock, times(1)).toCartView(cart);
     }
 
@@ -113,7 +115,7 @@ class CartControllerTest {
             .andDo(result -> System.out.println(result.getResponse().getContentAsString()))
             .andExpect(jsonPath("$.id").value(1L))
             .andExpect(jsonPath("$.consumerId").value("08444331015"))
-            .andExpect(jsonPath("$.items[0].productId").value(1L))
+            .andExpect(jsonPath("$.items[0].productId").value("1"))
             .andExpect(jsonPath("$.items[0].productName").value("X-TUDO"))
             .andExpect(jsonPath("$.items[0].price").value("20.0"))
             .andExpect(jsonPath("$.items[0].quantity").value(2))
@@ -128,7 +130,7 @@ class CartControllerTest {
     void createItemWithNegativeQuantity() throws Exception {
         mockMvc.perform(post("/carts/1/items")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"productId\": 1, \"quantity\": -1}"))
+                .content("{\"productId\": \"1\", \"quantity\": -1}"))
             .andExpect(status().isBadRequest());
     }
 
@@ -136,7 +138,7 @@ class CartControllerTest {
     void createItemWithZeroQuantity() throws Exception {
         mockMvc.perform(post("/carts/1/items")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"productId\": 1, \"quantity\": 0}"))
+                .content("{\"productId\": \"1\", \"quantity\": 0}"))
             .andExpect(status().isBadRequest());
     }
 

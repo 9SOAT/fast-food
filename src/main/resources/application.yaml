@@ -42,3 +42,10 @@ management:
 
 jwt:
   secret-key: ${JWT_SECRET_KEY}Ï
+
+
+app:
+  integration:
+    catalog:
+      base-url: ${API_FAST_FOOD_CATALOG}
+      timeout: 5000

@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 
 public record CartItemView(
-    Long productId,
+    String productId,
     String productName,
     BigDecimal price,
     Integer quantity,
     BigDecimal subTotal,
-    ProductCategoryView category
+    String category
 ) {
 }

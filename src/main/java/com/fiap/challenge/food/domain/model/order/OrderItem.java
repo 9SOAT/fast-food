@@ -1,6 +1,5 @@
 package com.fiap.challenge.food.domain.model.order;
 
-import com.fiap.challenge.food.domain.model.product.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,11 +15,11 @@ import java.math.BigDecimal;
 public class OrderItem {
     private Long id;
     @NonNull
-    private Long productId;
+    private String productId;
     @NonNull
     private String productName;
     @NonNull
-    private ProductCategory productCategory;
+    private String productCategory;
     @NonNull
     private Integer quantity;
     @NonNull

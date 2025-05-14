@@ -31,12 +31,11 @@ public class CartItemEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     @NotNull
-    private Long productId;
+    private String productId;
     @NotEmpty
     private String productName;
     @NotNull
-    @Enumerated(STRING)
-    private ProductCategoryEntity category;
+    private String category;
     @Min(1)
     @NotNull
     private Integer quantity;

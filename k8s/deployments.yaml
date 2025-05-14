@@ -47,6 +47,11 @@ spec:
             initialDelaySeconds: 40
             periodSeconds: 10
           env:
+            - name: API_FAST_FOOD_CATALOG
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: API_FAST_FOOD_CATALOG
             - name: POSTGRES_HOST
               valueFrom:
                 configMapKeyRef:
