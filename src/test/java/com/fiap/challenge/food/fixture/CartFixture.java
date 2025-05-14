@@ -3,7 +3,6 @@ package com.fiap.challenge.food.fixture;
 import com.fiap.challenge.food.domain.model.cart.Cart;
 import com.fiap.challenge.food.domain.model.cart.CartItem;
 import com.fiap.challenge.food.domain.model.cart.CartStatus;
-import com.fiap.challenge.food.domain.model.product.ProductCategory;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,7 +17,7 @@ public class CartFixture {
 
     public static Cart aCartWithASandwich() {
         Cart cart = aEmptyCart();
-        cart.setItems(List.of(new CartItem(null, 1L, "X-TUDO", ProductCategory.SANDWICH, new BigDecimal("20.00"), 1 , LocalDateTime.now())));
+        cart.setItems(List.of(new CartItem(null, "1", "X-TUDO", "SANDWICH", new BigDecimal("20.00"), 1 , LocalDateTime.now())));
         return cart;
     }
 

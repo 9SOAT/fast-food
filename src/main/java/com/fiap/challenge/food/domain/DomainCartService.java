@@ -5,6 +5,7 @@ import com.fiap.challenge.food.domain.model.cart.CartItem;
 import com.fiap.challenge.food.domain.model.exception.NotFoundException;
 import com.fiap.challenge.food.domain.model.exception.UnprocessableEntityException;
 import com.fiap.challenge.food.domain.model.product.Product;
+import com.fiap.challenge.food.domain.model.product.ProductCategoryUtil;
 import com.fiap.challenge.food.domain.ports.inbound.CartService;
 import com.fiap.challenge.food.domain.ports.outbound.CartRepository;
 import com.fiap.challenge.food.domain.ports.outbound.ProductRepository;
@@ -34,13 +35,14 @@ public class DomainCartService implements CartService {
     }
 
     @Override
-    public Cart addItem(Long cartId, Long productId, int quantity) {
+    public Cart addItem(Long cartId, String productId, int quantity) {
 
         Product product = getProduct(productId);
         Cart cart = getById(cartId);
 
+
         cart.getLatestItemCategory().ifPresent(latestCategory -> {
-            if (!product.getCategory().isSubsequent(latestCategory)) {
+            if (!ProductCategoryUtil.isSubsequent(product.getCategory(), latestCategory)) {
                 log.warn("Invalid addition sequence of items. cartId={} productId={} latestCategory={} productCategory={}",
                     cartId, productId, latestCategory, product.getCategory());
                 throw new UnprocessableEntityException("Invalid addition sequence of items", "INVALID_ITEM_SEQUENCE");
@@ -58,8 +60,8 @@ public class DomainCartService implements CartService {
         return cartRepository.save(cart.addItem(cartItem));
     }
 
-    private Product getProduct(Long productId) {
+    private Product getProduct(String productId) {
         return productRepository.findById(productId)
-            .orElseThrow(() -> new NotFoundException(String.format("Product not found %d", productId), "PRODUCT_NOT_FOUND"));
+            .orElseThrow(() -> new NotFoundException(String.format("Product not found %s", productId), "PRODUCT_NOT_FOUND"));
     }
 }

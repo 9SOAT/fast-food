@@ -1,6 +1,6 @@
 package com.fiap.challenge.food.domain.model.cart;
 
-import com.fiap.challenge.food.domain.model.product.ProductCategory;
+import com.fiap.challenge.food.domain.model.product.ProductCategoryUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,11 +42,9 @@ public class Cart {
             .findFirst();
 
         existentItem.ifPresentOrElse(cartItem ->
-            cartItem.increaseQuantity(cartItem.getQuantity()),
-            () -> {
-                items.add(item);
-            }
-        );
+                cartItem.increaseQuantity(cartItem.getQuantity()),
+            () -> items.add(item));
+
         return this;
     }
 
@@ -62,10 +60,10 @@ public class Cart {
         return this.items.isEmpty();
     }
 
-    public Optional<ProductCategory> getLatestItemCategory() {
+    public Optional<String> getLatestItemCategory() {
         return items.stream()
             .map(CartItem::getCategory)
-            .max(Comparator.comparingInt(ProductCategory::getOrder));
+            .max(Comparator.comparingInt(ProductCategoryUtil::getOrder));
     }
 
     public Boolean isCartTotalGreaterThanZero() {

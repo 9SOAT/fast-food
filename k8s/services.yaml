@@ -1,8 +1,10 @@
 ---
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
   name: fast-food-svc
+  labels:
+    app: fast-food
 spec:
   selector:
     app: fast-food
@@ -10,4 +12,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
-  type: LoadBalancer
+  type: ClusterIP

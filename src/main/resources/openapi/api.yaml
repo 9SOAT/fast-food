@@ -1,130 +1,23 @@
----
 openapi: 3.0.1
 info:
   title: Fast Food API
   version: v0
 paths:
-  '/products/{id}':
-    get:
-      description: Busca um produto pelo id
-      tags:
-        - Produtos
-      operationId: findById
-      parameters:
-        - name: id
-          description: ID do produto
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ProductView'
-    put:
-      description: Atualiza um produto pelo id
-      tags:
-        - Produtos
-      operationId: updateProduct
-      parameters:
-        - name: id
-          description: ID do produto
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ProductMutation'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ProductView'
-    delete:
-      description: Remove um produto pelo id. A remoção é logica, pois o produto não é removido do banco de dados.
-      tags:
-        - Produtos
-      operationId: deleteProduct
-      parameters:
-        - name: id
-          description: ID do produto
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '204':
-          description: No Content
-  /products:
-    get:
-      description: Busca paginada de produtos
-      tags:
-        - Produtos
-      operationId: findAll
-      parameters:
-        - name: page
-          description: Número da página
-          in: query
-          required: true
-          schema:
-            minimum: 1
-            type: integer
-            format: int32
-        - name: size
-          description: Quantidade de elementos por página
-          in: query
-          required: true
-          schema:
-            maximum: 50
-            type: integer
-            format: int32
-        - name: status
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - ACTIVE
-              - INACTIVE
-              - ALL
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/PageResultProductView'
+  /webhook:
     post:
-      description: Cria um produto
       tags:
-        - Produtos
-      operationId: createProduct
+        - Webhook
+      operationId: webhookNotification
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProductMutation'
+              $ref: '#/components/schemas/WebhookRequest'
         required: true
       responses:
         '201':
           description: Created
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ProductView'
-  '/orders/{id}/payment/approval':
+  /orders/{id}/payment/approval:
     post:
       description: Aprova o pagamento de um pedido. Este endpoint é de uso temporário, pois a aprovação de pagamento deve ser feita pelo sitema de pagamento.
       tags:
@@ -227,7 +120,7 @@ paths:
             'application/json':
               schema:
                 $ref: '#/components/schemas/CartView'
-  '/carts/{cartId}/items':
+  /carts/{cartId}/items:
     post:
       description: Adiciona um item ao carrinho
       tags:
@@ -254,6 +147,27 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/CartView'
+  /orders/{id}/status:
+    patch:
+      tags:
+        - Pedidos
+      operationId: updateOrderStatus
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStatusMutation'
+        required: true
+      responses:
+        '200':
+          description: OK
   /orders:
     get:
       description: Busca paginada de pedidos por status
@@ -298,44 +212,35 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/PageResultOrderView'
-  '/consumers/{cpf}':
+  /orders/{id}/payment/status:
     get:
       tags:
-        - Consumidores
-      operationId: getConsumerByCpf
-      description: Busca consumidor pelo CPF
+        - Pedidos
+      operationId: getPaymentStatusById
       parameters:
-        - name: cpf
-          description: CPF do consumidor
+        - name: id
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
       responses:
         '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/ConsumerView'
-  /catalog:
+                type: string
+                enum:
+                  - PENDING
+                  - APPROVED
+                  - REJECTED
+  /orders/list:
     get:
-      description: Busca paginada de produtos ativos por categoria
       tags:
-        - Catalogo
-      operationId: getByCategory
+        - Pedidos
+      operationId: getOrders
       parameters:
-        - name: category
-          description: Categoria do produto
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - SANDWICH
-              - DRINK
-              - SIDE_DISH
-              - DESSERT
         - name: page
           description: Número da página
           in: query
@@ -349,7 +254,7 @@ paths:
           in: query
           required: true
           schema:
-            maximum: 50
+            maximum: 20
             type: integer
             format: int32
       responses:
@@ -358,29 +263,26 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/PageResultProductView'
-  '/catalog/{id}':
+                $ref: '#/components/schemas/PageResultOrderView'
+  /consumers/{cpf}:
     get:
-      description: Busca um produto pelo id
       tags:
-        - Catalogo
-      operationId: getById
+        - consumer-controller
+      operationId: getConsumerByCpf
       parameters:
-        - name: id
-          description: ID do produto
+        - name: cpf
           in: path
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
       responses:
         '200':
           description: OK
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/ProductView'
-  '/carts/{id}':
+                $ref: '#/components/schemas/ConsumerView'
+  /carts/{id}:
     get:
       description: Busca um carrinho pelo id
       tags:
@@ -403,67 +305,23 @@ paths:
                 $ref: '#/components/schemas/CartView'
 components:
   schemas:
-    ProductMutation:
-      required:
-        - category
-        - description
-        - images
-        - name
-        - price
+    WebhookRequest:
       type: object
       properties:
-        name:
+        transactionId:
           type: string
-          description: Nome do produto
-        description:
-          type: string
-          description: Descrição do produto
-        images:
-          description: URLs das imagens do produto
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        price:
-          description: Preço do produto
-          type: number
-        category:
-          description: Categoria do produto
+        action:
           type: string
           enum:
-            - SANDWICH
-            - DRINK
-            - SIDE_DISH
-            - DESSERT
-    ProductView:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        description:
-          type: string
-        images:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        price:
-          type: number
-        category:
-          type: string
-          enum:
-            - SANDWICH
-            - DRINK
-            - SIDE_DISH
-            - DESSERT
+            - UPDATED
         status:
           type: string
           enum:
-            - ACTIVE
-            - INACTIVE
+            - APPROVED
+            - REJECTED
+        dateCreated:
+          type: string
+          format: date-time
     ConsumerMutation:
       required:
         - cpf
@@ -501,8 +359,7 @@ components:
       type: object
       properties:
         productId:
-          type: integer
-          format: int64
+          type: string
         productName:
           type: string
         productCategory:
@@ -540,6 +397,7 @@ components:
         status:
           type: string
           enum:
+            - CANCELLED
             - WAITING_PAYMENT
             - READY_FOR_PREPARATION
             - IN_PREPARATION
@@ -581,8 +439,7 @@ components:
       type: object
       properties:
         productId:
-          type: integer
-          format: int64
+          type: string
         productName:
           type: string
         price:
@@ -621,55 +478,60 @@ components:
       type: object
       properties:
         productId:
-          type: integer
-          format: int64
+          type: string
         quantity:
           minimum: 1
           type: integer
           format: int32
-    PageResultView:
+    OrderStatusMutation:
+      required:
+        - status
       type: object
       properties:
-        pageNumber:
-          description: Número da página
-          type: integer
-          format: int32
-        pageSize:
-          description: Quantidade de elementos por página
-          type: integer
-          format: int32
-        totalElements:
-          description: Quantidade total de elementos
-          type: integer
-          format: int64
-        totalPages:
-          description: Quantidade total de páginas
-          type: integer
-          format: int32
-    PageResultProductView:
-      allOf:
-        - $ref: '#/components/schemas/PageResultView'
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductView'
-    PageResultConsumerView:
-      allOf:
-        - $ref: '#/components/schemas/PageResultView'
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConsumerView'
+        status:
+          type: string
+          enum:
+            - CANCELLED
+            - WAITING_PAYMENT
+            - READY_FOR_PREPARATION
+            - IN_PREPARATION
+            - READY_FOR_PICKUP
+            - FINISHED
     PageResultOrderView:
-      allOf:
-        - $ref: '#/components/schemas/PageResultView'
       type: object
       properties:
         content:
           type: array
           items:
             $ref: '#/components/schemas/OrderView'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+    PageResultConsumerView:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsumerView'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32

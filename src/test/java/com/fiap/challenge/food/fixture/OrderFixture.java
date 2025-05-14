@@ -7,7 +7,6 @@ import com.fiap.challenge.food.domain.model.order.OrderStatus;
 import com.fiap.challenge.food.domain.model.payment.Payment;
 import com.fiap.challenge.food.domain.model.payment.PaymentStatus;
 import com.fiap.challenge.food.domain.model.payment.PaymentType;
-import com.fiap.challenge.food.domain.model.product.ProductCategory;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -30,7 +29,7 @@ public class OrderFixture {
                 PaymentStatus.PENDING,
                 null
             ),
-            List.of(new OrderItem(1L, 1L, "X-Tudo", ProductCategory.SANDWICH, 2, new BigDecimal("20.00"), new BigDecimal("40.00"))), OrderStatus.WAITING_PAYMENT, new BigDecimal("40.00"),
+            List.of(new OrderItem(1L, "1", "X-Tudo", "SANDWICH", 2, new BigDecimal("20.00"), new BigDecimal("40.00"))), OrderStatus.WAITING_PAYMENT, new BigDecimal("40.00"),
             Instant.now()
         );
     }

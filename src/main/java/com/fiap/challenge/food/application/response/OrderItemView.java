@@ -3,9 +3,9 @@ package com.fiap.challenge.food.application.response;
 import java.math.BigDecimal;
 
 public record OrderItemView(
-    Long productId,
+    String productId,
     String productName,
-    ProductCategoryView productCategory,
+    String productCategory,
     Integer quantity,
     BigDecimal price,
     BigDecimal subtotal

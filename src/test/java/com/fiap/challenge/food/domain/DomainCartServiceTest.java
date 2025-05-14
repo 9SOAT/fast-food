@@ -76,7 +76,7 @@ class DomainCartServiceTest {
     @Test
     void addItemToCartWithValidProductAndSequence() {
         Long cartId = 1L;
-        Long productId = 1L;
+        String productId = "1";
         int quantity = 2;
         Product product = ProductFixture.aProduct();
         Cart cart = CartFixture.aEmptyCart();
@@ -96,7 +96,7 @@ class DomainCartServiceTest {
     @Test
     void addItemToCartWithInvalidProduct() {
         Long cartId = 1L;
-        Long productId = 1L;
+        String productId = "1";
         int quantity = 2;
         when(productRepository.findById(productId)).thenReturn(Optional.empty());
 
@@ -109,7 +109,7 @@ class DomainCartServiceTest {
     @Test
     void addItemToCartWithInvalidSequence() {
         Long cartId = 1L;
-        Long productId = 1L;
+        String productId = "1";
         int quantity = 2;
         Product sandwich = ProductFixture.aProduct();
         Cart cart = CartFixture.aCartWithASandwich();
@@ -125,7 +125,7 @@ class DomainCartServiceTest {
     @Test
     void addItemToNonExistentCart() {
         Long cartId = 1L;
-        Long productId = 1L;
+        String productId = "1";
         int quantity = 2;
         Product product = ProductFixture.aProduct();
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));

@@ -1,12 +1,13 @@
 package com.fiap.challenge.food.domain.model.cart;
 
-import com.fiap.challenge.food.domain.model.product.ProductCategory;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class CartTest {
@@ -14,8 +15,8 @@ class CartTest {
     @Test
     void cartEntityTotalPriceCalculation() {
         Cart cart = new Cart();
-        cart.addItem(new CartItem(null, 1L, "X-TUDO", ProductCategory.SANDWICH, new BigDecimal("20.00"), 1, LocalDateTime.now()));
-        cart.addItem(new CartItem(null, 2L, "Casquinha de creme", ProductCategory.DESSERT, new BigDecimal("9.99"), 2, LocalDateTime.now()));
+        cart.addItem(new CartItem(null, "1", "X-TUDO", "SANDWICH", new BigDecimal("20.00"), 1, LocalDateTime.now()));
+        cart.addItem(new CartItem(null, "2", "Casquinha de creme", "DESSERT", new BigDecimal("9.99"), 2, LocalDateTime.now()));
         assertEquals(BigDecimal.valueOf(39.98), cart.getTotal());
     }
 
@@ -28,8 +29,8 @@ class CartTest {
     @Test
     void cartIsNotEmptyItems() {
         Cart cart = new Cart();
-        cart.addItem(new CartItem(null, 1L, "X-TUDO", ProductCategory.SANDWICH, new BigDecimal("20.00"), 1, LocalDateTime.now()));
-        cart.addItem(new CartItem(null, 1L, "Casquinha de creme", ProductCategory.DESSERT, new BigDecimal("9.99"), 2, LocalDateTime.now()));
+        cart.addItem(new CartItem(null, "1", "X-TUDO", "SANDWICH", new BigDecimal("20.00"), 1, LocalDateTime.now()));
+        cart.addItem(new CartItem(null, "1", "Casquinha de creme", "DESSERT", new BigDecimal("9.99"), 2, LocalDateTime.now()));
         assertFalse(cart.isEmpty());
     }
 
@@ -56,15 +57,15 @@ class CartTest {
     @Test
     void cartAddItem() {
         Cart cart = new Cart();
-        cart.addItem(new CartItem(null, 1L, "X-TUDO", ProductCategory.SANDWICH, new BigDecimal("20.00"), 1, LocalDateTime.now()));
+        cart.addItem(new CartItem(null, "1", "X-TUDO", "SANDWICH", new BigDecimal("20.00"), 1, LocalDateTime.now()));
         assertEquals(1, cart.getItems().size());
     }
 
     @Test
     void cartAddItemWithSameProduct() {
         Cart cart = new Cart();
-        cart.addItem(new CartItem(null, 1L, "X-TUDO", ProductCategory.SANDWICH, new BigDecimal("20.00"), 1, LocalDateTime.now()));
-        cart.addItem(new CartItem(null, 1L, "X-TUDO", ProductCategory.SANDWICH, new BigDecimal("20.00"), 1, LocalDateTime.now()));
+        cart.addItem(new CartItem(null, "1", "X-TUDO", "SANDWICH", new BigDecimal("20.00"), 1, LocalDateTime.now()));
+        cart.addItem(new CartItem(null, "1", "X-TUDO", "SANDWICH", new BigDecimal("20.00"), 1, LocalDateTime.now()));
         assertEquals(1, cart.getItems().size());
         assertEquals(2, cart.getItems().get(0).getQuantity());
     }
@@ -72,23 +73,23 @@ class CartTest {
     @Test
     void cartAddItemWithDifferentProduct() {
         Cart cart = new Cart();
-        cart.addItem(new CartItem(null, 1L, "X-TUDO", ProductCategory.SANDWICH, new BigDecimal("20.00"), 1, LocalDateTime.now()));
-        cart.addItem(new CartItem(null, 2L, "Casquinha de creme", ProductCategory.DESSERT, new BigDecimal("9.99"), 2, LocalDateTime.now()));
+        cart.addItem(new CartItem(null, "1", "X-TUDO", "SANDWICH", new BigDecimal("20.00"), 1, LocalDateTime.now()));
+        cart.addItem(new CartItem(null, "2", "Casquinha de creme", "DESSERT", new BigDecimal("9.99"), 2, LocalDateTime.now()));
         assertEquals(2, cart.getItems().size());
     }
 
     @Test
     void cartGetLatestItemCategory() {
         Cart cart = new Cart();
-        cart.addItem(new CartItem(null, 1L, "X-TUDO", ProductCategory.SANDWICH, new BigDecimal("20.00"), 1, LocalDateTime.now()));
-        cart.addItem(new CartItem(null, 2L, "Casquinha de creme", ProductCategory.DESSERT, new BigDecimal("9.99"), 2, LocalDateTime.now()));
-        assertEquals(ProductCategory.DESSERT, cart.getLatestItemCategory().get());
+        cart.addItem(new CartItem(null, "1", "X-TUDO", "SANDWICH", new BigDecimal("20.00"), 1, LocalDateTime.now()));
+        cart.addItem(new CartItem(null, "2", "Casquinha de creme", "DESSERT", new BigDecimal("9.99"), 2, LocalDateTime.now()));
+        assertEquals("DESSERT", cart.getLatestItemCategory().get());
     }
 
     @Test
     void cartIsCartTotalGreaterThanZero() {
         Cart cart = new Cart();
-        cart.addItem(new CartItem(null, 1L, "X-TUDO", ProductCategory.SANDWICH, new BigDecimal("20.00"), 1, LocalDateTime.now()));
+        cart.addItem(new CartItem(null, "1", "X-TUDO", "SANDWICH", new BigDecimal("20.00"), 1, LocalDateTime.now()));
         assertTrue(cart.isCartTotalGreaterThanZero());
     }
 
