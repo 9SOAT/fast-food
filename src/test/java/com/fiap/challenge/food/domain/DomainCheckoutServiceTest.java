@@ -6,11 +6,11 @@ import com.fiap.challenge.food.domain.model.exception.UnprocessableEntityExcepti
 import com.fiap.challenge.food.domain.model.order.Order;
 import com.fiap.challenge.food.domain.model.payment.Payment;
 import com.fiap.challenge.food.domain.ports.outbound.CartRepository;
-import com.fiap.challenge.food.domain.ports.outbound.OrderRepository;
 import com.fiap.challenge.food.domain.ports.outbound.PaymentClient;
 import com.fiap.challenge.food.fixture.CartFixture;
 import com.fiap.challenge.food.fixture.OrderFixture;
 import com.fiap.challenge.food.fixture.PaymentFixture;
+import com.fiap.challenge.food.infrastructure.rest.OrderIntegration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 class DomainCheckoutServiceTest {
 
     @Mock
-    private OrderRepository orderRepositoryMock;
+    private OrderIntegration orderIntegrationMock;
 
     @Mock
     private CartRepository cartRepositoryMock;
@@ -46,7 +46,7 @@ class DomainCheckoutServiceTest {
 
         when(cartRepositoryMock.findById(1L)).thenReturn(Optional.of(cart));
         when(paymentClientMock.create(any(Payment.class))).thenReturn(payment);
-        when(orderRepositoryMock.save(any(Order.class))).thenReturn(order);
+        when(orderIntegrationMock.saveOrder(any(Order.class))).thenReturn(order);
 
         Order result = domainCheckoutService.checkout(1L);
 
@@ -54,7 +54,7 @@ class DomainCheckoutServiceTest {
         verify(cartRepositoryMock, times(1)).findById(1L);
         verify(cartRepositoryMock, times(1)).save(cart);
         verify(paymentClientMock, times(1)).create(any(Payment.class));
-        verify(orderRepositoryMock, times(1)).save(any(Order.class));
+        verify(orderIntegrationMock, times(1)).saveOrder(any(Order.class));
     }
 
     @Test

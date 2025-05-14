@@ -42,3 +42,9 @@ management:
 
 jwt:
   secret-key: ${JWT_SECRET_KEY}Ï
+
+order:
+  base-url: http://8080/
+  approve-payment: /payment/approval
+  reject-payment: /payment/rejection
+  save-order: /order/save
