@@ -17,7 +17,7 @@ import java.util.List;
 public class Order {
     private Long id;
     private Long cartId;
-    private Long consumerId;
+    private String consumerId;
     private Payment payment;
     private List<OrderItem> items;
     private OrderStatus status;

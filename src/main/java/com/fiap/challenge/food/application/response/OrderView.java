@@ -6,7 +6,7 @@ import java.util.List;
 public record OrderView(
     Long id,
     Long cartId,
-    Long consumerId,
+    String consumerId,
     PaymentView payment,
     List<OrderItemView> items,
     OrderStatusView status,

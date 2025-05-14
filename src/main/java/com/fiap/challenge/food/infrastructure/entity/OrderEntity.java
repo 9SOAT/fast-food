@@ -39,7 +39,7 @@ public class OrderEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    private Long consumerId;
+    private String consumerId;
 
     @NotNull
     private Long cartId;

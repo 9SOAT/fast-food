@@ -13,7 +13,7 @@ import java.util.List;
 public class CartFixture {
 
     public static Cart aEmptyCart() {
-        return new Cart(1L, 1L, new ArrayList<>(), CartStatus.OPEN, LocalDateTime.now());
+        return new Cart(1L, "08444331015", new ArrayList<>(), CartStatus.OPEN, LocalDateTime.now());
     }
 
     public static Cart aCartWithASandwich() {

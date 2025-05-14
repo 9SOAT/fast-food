@@ -22,7 +22,7 @@ public class DomainCartService implements CartService {
     }
 
     @Override
-    public Cart create(Long consumerId) {
+    public Cart create(String consumerId) {
         log.info("Creating cart for consumerId={}", consumerId);
         return cartRepository.save(new Cart(consumerId));
     }

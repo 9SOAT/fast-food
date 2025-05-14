@@ -39,7 +39,7 @@ class DomainCartServiceTest {
 
     @Test
     void createCartWithValidConsumerId() {
-        Long consumerId = 1L;
+        String consumerId = "08444331015";
         when(cartRepository.save(any(Cart.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         Cart cart = domainCartService.create(consumerId);

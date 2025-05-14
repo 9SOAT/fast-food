@@ -28,7 +28,7 @@ public class CartController {
     @PostMapping
     @ResponseStatus(CREATED)
     public CartView create(@RequestHeader(value = "Authorization", required = false) String authHeader) {
-        Long consumerId = jwtUtil.extractConsumerIdFromToken(authHeader);
+        String consumerId = jwtUtil.extractConsumerIdFromToken(authHeader);
         Cart cart = cartService.create(consumerId);
         return viewMapper.toCartView(cart);
     }

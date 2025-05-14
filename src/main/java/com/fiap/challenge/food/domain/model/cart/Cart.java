@@ -20,12 +20,12 @@ import static com.fiap.challenge.food.domain.model.cart.CartStatus.OPEN;
 @AllArgsConstructor
 public class Cart {
     private Long id;
-    private Long consumerId;
+    private String consumerId;
     private List<CartItem> items = new ArrayList<>();
     private CartStatus status = OPEN;
     private LocalDateTime createdAt;
 
-    public Cart(Long consumerId) {
+    public Cart(String consumerId) {
         this.consumerId = consumerId;
         this.createdAt = LocalDateTime.now();
     }
