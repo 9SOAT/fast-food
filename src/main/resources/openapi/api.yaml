@@ -124,23 +124,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ProductView'
-  '/orders/{id}/payment/approval':
-    post:
-      description: Aprova o pagamento de um pedido. Este endpoint é de uso temporário, pois a aprovação de pagamento deve ser feita pelo sitema de pagamento.
-      tags:
-        - Pedidos
-      operationId: approvePayment
-      parameters:
-        - name: id
-          description: ID do pedido
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '201':
-          description: Created
   /consumers:
     get:
       description: Busca paginada de consumidores
