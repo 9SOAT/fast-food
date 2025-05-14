@@ -12,7 +12,7 @@ public class OrderViewFixture {
         return new OrderView(
             1L,
             1L,
-            1L,
+            "08444331015",
             PaymentViewFixture.validPaymentView(),
             List.of(OrderItemViewFixture.validItem()),
             OrderStatusView.READY_FOR_PREPARATION,

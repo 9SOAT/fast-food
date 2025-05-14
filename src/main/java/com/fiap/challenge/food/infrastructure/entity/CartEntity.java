@@ -25,7 +25,7 @@ public class CartEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    private Long consumerId;
+    private String consumerId;
 
     @OneToMany(mappedBy = "cart", cascade = ALL)
     private List<CartItemEntity> items;

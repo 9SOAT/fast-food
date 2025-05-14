@@ -1,7 +1,6 @@
 package com.fiap.challenge.food.application.controller;
 
 import com.fiap.challenge.food.application.request.CartItemMutation;
-import com.fiap.challenge.food.application.request.CartMutation;
 import com.fiap.challenge.food.application.response.CartView;
 import com.fiap.challenge.food.domain.model.cart.Cart;
 import com.fiap.challenge.food.domain.ports.inbound.CartService;
@@ -54,9 +53,9 @@ class CartControllerTest {
         Cart cart = new Cart();
         CartView cartView = CartViewFixture.aEmptyCartView();
 
-        when(cartServiceMock.create(1L)).thenReturn(cart);
+        when(cartServiceMock.create("08444331015")).thenReturn(cart);
         when(viewMapperMock.toCartView(cart)).thenReturn(cartView);
-        when(jwtUtilMock.extractConsumerIdFromToken(any())).thenReturn(1L);
+        when(jwtUtilMock.extractConsumerIdFromToken(any())).thenReturn("08444331015");
 
         ResultActions resultActions = mockMvc.perform(post("/carts")
             .contentType(MediaType.APPLICATION_JSON)
@@ -64,12 +63,12 @@ class CartControllerTest {
 
         resultActions.andExpect(status().isCreated())
             .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.consumerId").value(1L))
+            .andExpect(jsonPath("$.consumerId").value("08444331015"))
             .andExpect(jsonPath("$.items").isArray())
             .andExpect(jsonPath("$.total").value(0))
         ;
 
-        verify(cartServiceMock, times(1)).create(1L);
+        verify(cartServiceMock, times(1)).create("08444331015");
         verify(viewMapperMock, times(1)).toCartView(cart);
     }
 
@@ -88,7 +87,7 @@ class CartControllerTest {
 
         resultActions.andExpect(status().isCreated())
             .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.consumerId").value(1L))
+            .andExpect(jsonPath("$.consumerId").value("08444331015"))
             .andExpect(jsonPath("$.items[0].productId").value(1L))
             .andExpect(jsonPath("$.items[0].productName").value("X-TUDO"))
             .andExpect(jsonPath("$.items[0].price").value("20.0"))
@@ -113,7 +112,7 @@ class CartControllerTest {
         resultActions.andExpect(status().isOk())
             .andDo(result -> System.out.println(result.getResponse().getContentAsString()))
             .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.consumerId").value(1L))
+            .andExpect(jsonPath("$.consumerId").value("08444331015"))
             .andExpect(jsonPath("$.items[0].productId").value(1L))
             .andExpect(jsonPath("$.items[0].productName").value("X-TUDO"))
             .andExpect(jsonPath("$.items[0].price").value("20.0"))

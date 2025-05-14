@@ -9,11 +9,11 @@ import java.util.List;
 
 public class CartViewFixture {
     public static CartView aEmptyCartView() {
-        return new CartView(1L, 1L, List.of(), BigDecimal.ZERO);
+        return new CartView(1L, "08444331015", List.of(), BigDecimal.ZERO);
     }
 
     public static CartView aCartViewWithSandwich() {
-        return new CartView(1L, 1L, List.of(new CartItemView(1L, "X-TUDO",
+        return new CartView(1L, "08444331015", List.of(new CartItemView(1L, "X-TUDO",
             new BigDecimal("20.00"), 2, new BigDecimal("40.00"), ProductCategoryView.SANDWICH)), new BigDecimal("40.00"));
     }
 }

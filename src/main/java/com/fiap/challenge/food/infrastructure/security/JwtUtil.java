@@ -24,7 +24,7 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    private Long extractConsumerId(String token) {
+    private String extractConsumerId(String token) {
         try {
             Claims claims = Jwts.parser()
                 .verifyWith(getSigningKey())
@@ -32,22 +32,15 @@ public class JwtUtil {
                 .parseSignedClaims(token)
                 .getPayload();
 
-            Object userIdObj = claims.get("consumer_id");
-
-            if (userIdObj instanceof String) {
-                return Long.parseLong((String) userIdObj);
-            } else if (userIdObj instanceof Number) {
-                return ((Number) userIdObj).longValue();
-            }
-
-            return null;
+            Object userIdObj = claims.get("cpf");
+            return (String) userIdObj;
         } catch (Exception e) {
             log.warn("Erro ao processar JWT: {}", e.getMessage());
             return null;
         }
     }
 
-    public Long extractConsumerIdFromToken(String authHeader) {
+    public String extractConsumerIdFromToken(String authHeader) {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             return extractConsumerId(token);

@@ -6,7 +6,7 @@ import java.util.List;
 
 public record CartView(
     Long id,
-    Long consumerId,
+    String consumerId,
     List<CartItemView>items,
     BigDecimal total
 ) {
