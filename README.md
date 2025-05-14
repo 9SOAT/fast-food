@@ -1,6 +1,14 @@
-# 🍔 Fast Food  
+# 🍔 Fast Food
 
 O Fast Food é um sistema que permite que o cliente faça pedidos de forma autônoma, sem a necessidade de um atendente. O cliente pode visualizar o cardápio, adicionar itens ao carrinho, visualizar o carrinho, finalizar o pedido e realizar o pagamento. Após o pagamento, o cliente recebe um código de retirada que pode ser utilizado para acompanhar o status do pedido e para retirada o pedido no balcão.
+
+> Repositório principal de diagramas e visão geral dos micro-serviços do ecossistema *fast-food*.
+
+## 🚀 Visão Geral
+Este repositório contém **diagramas**, **documentação de alto nível** e **links** para os micro-serviços responsáveis por cada domínio de negócio:
+- **Clientes** - https://github.com/9SOAT/fast-food-consumer
+- **Pedidos** - https://github.com/9SOAT/fast-food-order
+- **Catalogo** - https://github.com/9SOAT/fast-food-catalog
 
 ## 🍟 Tecnologias e Técnicas utilizadas
 
@@ -48,7 +56,7 @@ Pré-requisitos:
 
 ### Kubernetes
 
-Pré-requisitos: 
+Pré-requisitos:
 - Ter o Kubernetes instalado e configurado localmente.
 - Ter o kubectl instalado e configurado.
 
@@ -68,15 +76,20 @@ Para acessar a aplicação, execute o comando:
 
 Como parte da documentação, foram elaborados alguns artefatos para auxiliar no entendimento da equipe, incluindo:
 - Diagramas do C4 Model nas camadas Context, Container e Component, para oferecer uma visão abrangente e estruturada da arquitetura do sistema.
-  - [Context](/docs/c4-model/systemcontext.png)
-  - [Container](/docs/c4-model/container.png)
-  - [Component](/docs/c4-model/component.png)
+    - [Context](/docs/c4-model/systemcontext.png)
+    - [Container](/docs/c4-model/container.png)
+    - [Component](/docs/c4-model/component.png)
 - Um diagrama de Kubernetes (K8s), acompanhado de uma análise do problema enfrentado: o restaurante está lidando com questões de performance em seu totem.
-  - [Diagrama](/docs/k8s/sk8.png)
+    - [Diagrama](/docs/k8s/sk8.png)
 - Requests (API)
-  - Swagger: http://localhost:8080/swagger-ui/index.html
-  - [Postman para importação](FIAP-request.postman_collection.json)
-- Video explicativo da aplicação: https://www.youtube.com/watch?v=EIm4ZCKEP04
+    - Swagger: http://localhost:8080/swagger-ui/index.html
+- Video explicativo da aplicação
+    - FIAP 9SOAT - Tech Challenge - Fase 4 -
+    - FIAP 9SOAT - Tech Challenge - Fase 3 - https://www.youtube.com/watch?v=qosJDcfGu6I
+    - FIAP 9SOAT - Tech Challenge - Fase 2 - https://www.youtube.com/watch?v=EIm4ZCKEP04
+- Fluxo completo de todas as integrações, sistemas e troca de informações no ecossistema *fast-food*.
+    - [Diagrama](/docs/Diagrama_Servicos_Modulo04_FIAP.png)
+
 
 #### Guia para execução das APIs
 **1. Cadastro do Catálogo de Produtos:**
@@ -123,7 +136,7 @@ Observação: Os possíveis status são: WAITING_PAYMENT, READY_FOR_PREPARATION,
 
 ## 🍨 Arquitetura Hexagonal
 
-A arquitetura hexagonal, também conhecida como Arquitetura de Portas e Adaptadores, é um estilo de arquitetura de software que visa separar a lógica de negócio da lógica de infraestrutura. Ela promove a criação de sistemas que são mais fáceis de manter, testar e evoluir ao longo do tempo.  
+A arquitetura hexagonal, também conhecida como Arquitetura de Portas e Adaptadores, é um estilo de arquitetura de software que visa separar a lógica de negócio da lógica de infraestrutura. Ela promove a criação de sistemas que são mais fáceis de manter, testar e evoluir ao longo do tempo.
 
 #### Principais Conceitos
 
