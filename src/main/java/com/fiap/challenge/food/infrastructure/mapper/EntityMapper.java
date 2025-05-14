@@ -3,7 +3,6 @@ package com.fiap.challenge.food.infrastructure.mapper;
 import com.fiap.challenge.food.domain.model.cart.Cart;
 import com.fiap.challenge.food.domain.model.cart.CartItem;
 import com.fiap.challenge.food.domain.model.cart.CartStatus;
-import com.fiap.challenge.food.domain.model.order.Order;
 import com.fiap.challenge.food.domain.model.order.OrderItem;
 import com.fiap.challenge.food.domain.model.order.OrderStatus;
 import com.fiap.challenge.food.domain.model.payment.Payment;
@@ -39,16 +38,6 @@ public interface EntityMapper {
     public PaymentEntity toPaymentEntity(Payment payment);
 
     public Payment toPayment(PaymentEntity paymentEntity);
-
-    public OrderItemEntity toOrderItemEntity(OrderItem orderItem);
-
-    public OrderItem toOrderItem(OrderItemEntity orderItemEntity);
-
-    public OrderEntity toOrderEntity(Order order);
-
-    public Order toOrder(OrderEntity orderEntity);
-
-    OrderStatusEntity toOrderStatusEntity(OrderStatus orderStatus);
 
     ProductStatusEntity toStatusEntity(ProductStatus productStatus);
 

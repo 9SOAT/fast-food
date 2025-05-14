@@ -1,4 +1,4 @@
-package com.fiap.challenge.food.infrastructure.rest;
+package com.fiap.challenge.food.infrastructure.restProvider;
 
 import com.fiap.challenge.food.domain.model.order.Order;
 import lombok.RequiredArgsConstructor;
@@ -9,11 +9,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class OrderIntegration {
+public class OrderProvider {
 
     @Value(value = "${order.base-url}")
     private String baseUrl;
@@ -55,5 +56,6 @@ public class OrderIntegration {
 
         return response.getBody();
     }
+
 
 }

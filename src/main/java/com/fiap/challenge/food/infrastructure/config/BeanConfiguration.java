@@ -6,7 +6,7 @@ import com.fiap.challenge.food.domain.DomainWebhookService;
 import com.fiap.challenge.food.domain.ports.inbound.ProductService;
 import com.fiap.challenge.food.domain.ports.outbound.ProductRepository;
 import com.fiap.challenge.food.domain.ports.outbound.WebhookRepository;
-import com.fiap.challenge.food.infrastructure.rest.OrderIntegration;
+import com.fiap.challenge.food.infrastructure.restProvider.OrderProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,7 +24,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public DomainWebhookService webhookService(WebhookRepository webhookRepository, OrderIntegration orderIntegration) {
-        return new DomainWebhookService(webhookRepository, orderIntegration);
+    public DomainWebhookService webhookService(WebhookRepository webhookRepository, OrderProvider orderProvider) {
+        return new DomainWebhookService(webhookRepository, orderProvider);
     }
 }

@@ -10,7 +10,7 @@ import com.fiap.challenge.food.domain.model.payment.Payment;
 import com.fiap.challenge.food.domain.ports.inbound.CheckoutService;
 import com.fiap.challenge.food.domain.ports.outbound.CartRepository;
 import com.fiap.challenge.food.domain.ports.outbound.PaymentClient;
-import com.fiap.challenge.food.infrastructure.rest.OrderIntegration;
+import com.fiap.challenge.food.infrastructure.restProvider.OrderProvider;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 
@@ -21,13 +21,13 @@ import static com.fiap.challenge.food.domain.model.order.OrderStatus.WAITING_PAY
 
 @Log4j2
 public class DomainCheckoutService implements CheckoutService {
-    private final OrderIntegration orderIntegration;
+    private final OrderProvider orderProvider;
     private final CartRepository cartRepository;
     private final PaymentClient paymentClient;
 
-    public DomainCheckoutService(OrderIntegration orderIntegration,
+    public DomainCheckoutService(OrderProvider orderProvider,
                                  CartRepository cartRepository, PaymentClient paymentClient) {
-        this.orderIntegration = orderIntegration;
+        this.orderProvider = orderProvider;
         this.cartRepository = cartRepository;
         this.paymentClient = paymentClient;
     }
@@ -47,7 +47,7 @@ public class DomainCheckoutService implements CheckoutService {
     private Order createOrder(Cart cart, Payment payment) {
         log.info("Creating order for cartId={}", cart.getId());
         Order order = buildOrder(cart, payment);
-        return orderIntegration.saveOrder(order);
+        return orderProvider.saveOrder(order);
     }
 
     private Payment createPayment(Cart cart) {
