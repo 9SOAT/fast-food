@@ -9,7 +9,7 @@ import org.springframework.web.service.annotation.PostExchange;
 
 public interface FastFoodOrderClient {
 
-    @PostExchange(value = "/orders/{id}/")
+    @PostExchange(value = "/orders/create/")
     OrderEntity saveOrder(@RequestBody Order order);
 
     @PostExchange(value = "/orders/{id}/payment/approve")
