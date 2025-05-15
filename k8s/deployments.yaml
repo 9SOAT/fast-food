@@ -47,6 +47,11 @@ spec:
                 configMapKeyRef:
                   name: config-map
                   key: API_FAST_FOOD_CATALOG
+            - name: API_FAST_FOOD_ORDER
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: API_FAST_FOOD_ORDER
             - name: POSTGRES_HOST
               valueFrom:
                 configMapKeyRef:
