@@ -19,7 +19,7 @@ public class FastFoodOrderClientConfig {
     private long timeoutMillis;
 
     @Bean
-    public RestClient OrderRestClient() {
+    public RestClient orderRestClient() {
         return RestClient.builder()
             .baseUrl(orderBaseUrl)
             .defaultHeader("Content-Type", "application/json")
@@ -28,9 +28,9 @@ public class FastFoodOrderClientConfig {
     }
 
     @Bean
-    public FastFoodOrderClient fastFoodOrderClient(RestClient restClient) {
+    public FastFoodOrderClient fastFoodOrderClient(RestClient orderRestClient) {
         // Criando um adaptador do RestClient
-        RestClientAdapter adapter = RestClientAdapter.create(restClient);
+        RestClientAdapter adapter = RestClientAdapter.create(orderRestClient);
 
         // Configurando o HttpServiceProxyFactory com o adaptador
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter)

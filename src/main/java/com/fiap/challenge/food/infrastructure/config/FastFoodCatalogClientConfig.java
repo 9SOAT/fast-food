@@ -28,9 +28,9 @@ public class FastFoodCatalogClientConfig {
     }
 
     @Bean
-    public FastFoodCatalogClient fastFoodCatalogClient(RestClient restClient) {
+    public FastFoodCatalogClient fastFoodCatalogClient(RestClient catalogRestClient) {
         // Criando um adaptador do RestClient
-        RestClientAdapter adapter = RestClientAdapter.create(restClient);
+        RestClientAdapter adapter = RestClientAdapter.create(catalogRestClient);
 
         // Configurando o HttpServiceProxyFactory com o adaptador
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter)
