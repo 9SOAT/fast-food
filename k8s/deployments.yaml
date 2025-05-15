@@ -15,11 +15,6 @@ spec:
       labels:
         app: fast-food
     spec:
-      dnsPolicy: None
-      dnsConfig:
-        nameservers:
-          - 8.8.8.8     # Google DNS
-          - 1.1.1.1     # Cloudflare DNS
       containers:
         - name: fast-food
           image: 897722698720.dkr.ecr.us-east-1.amazonaws.com/fast-food:latest
