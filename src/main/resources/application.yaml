@@ -15,16 +15,18 @@ spring:
     url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     properties:
       jakarta:
         persistence:
           validation:
             mode: none
   liquibase:
+    enabled: false
     change-log: classpath:db/changelog-master.yaml
   data:
     rest:
