@@ -7,5 +7,5 @@ data:
   POSTGRES_PORT: "5432"
   POSTGRES_DATABASE: "fast_food"
   API_FAST_FOOD_CATALOG: "http://fast-food-catalog-svc"
-  API_FAST_FOOD_ORDER: "fast-food-order-svc"
+  API_FAST_FOOD_ORDER: "http://fast-food-order-svc"
 
