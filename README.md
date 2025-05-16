@@ -189,8 +189,3 @@ Hexagonal:<img src="./docs/Hexagonal.png" alt="Hexagonal"></img>
 Exemplo de Implementação:<img src="./docs/Hexagonal-impl.png" alt="Hexagonal Impl"></img>
 
 Essa estrutura de pacotes e a separação clara de responsabilidades ajudam a manter o código organizado e modular, facilitando a manutenção e evolução do sistema.
-
-
-
-
-
