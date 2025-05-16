@@ -1,3 +1,6 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.fiap.challenge%3Afast-food&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=com.fiap.challenge%3Afast-food)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.fiap.challenge%3Afast-food&metric=coverage)](https://sonarcloud.io/summary/new_code?id=com.fiap.challenge%3Afast-food)
+
 # 🍔 Fast Food
 
 O Fast Food é um sistema que permite que o cliente faça pedidos de forma autônoma, sem a necessidade de um atendente. O cliente pode visualizar o cardápio, adicionar itens ao carrinho, visualizar o carrinho, finalizar o pedido e realizar o pagamento. Após o pagamento, o cliente recebe um código de retirada que pode ser utilizado para acompanhar o status do pedido e para retirada o pedido no balcão.
