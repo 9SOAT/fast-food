@@ -13,6 +13,11 @@ import java.util.Map;
 
 public class DefinicaoPassos {
 
+    public static final String BASE_URL = "http://a56a78ce9edaa472f8c8389a989ee5c7-f1e3acc26c082291.elb.us-east-1.amazonaws.com";
+    public static final String CONSUMER_URL = BASE_URL + "/consumers";
+    public static final String FAST_FOOD_URL = BASE_URL + "/fast-food";
+    public static final String ORDERS_URL = BASE_URL + "/orders";
+
     private String currentCpf;
     private String consumerId;
     private Integer orderId;
@@ -29,7 +34,7 @@ public class DefinicaoPassos {
     public void enviarRequisicaoComDadosValidos() {
         response = given()
             .when()
-            .get("http://localhost:8081/consumers/" + currentCpf);
+            .get(CONSUMER_URL + "/consumers/" + currentCpf);
         System.err.println("Consulta enviada para CPF " + currentCpf + " | status_code: " + response.statusCode());
     }
 
@@ -48,15 +53,15 @@ public class DefinicaoPassos {
             .contentType("application/json")
             .body(cartRequest)
             .when()
-            .post("http://localhost:8081/carts");
+            .post(FAST_FOOD_URL + "/carts");
         System.err.println("Carrinho criado com sucesso | status_code: " + response.statusCode());
 
         int cartId = response.jsonPath().getInt("id");
         System.err.println("ID do carrinho gerado: " + cartId);
     }
 
-    @Dado("que o usuário adicionou {int} unidades do produto {int}")
-    public void adicionarItemAoCarrinho(int quantidade, int produtoId) {
+    @Dado("que o usuário adicionou {int} unidades do produto {string}")
+    public void adicionarItemAoCarrinho(int quantidade, String produtoId) {
         item.put("productId", produtoId);
         item.put("quantity", quantidade);
         System.err.println("Itens incluídos: " + item);
@@ -68,7 +73,7 @@ public class DefinicaoPassos {
             .contentType("application/json")
             .body(item)
             .when()
-            .post("http://localhost:8081/carts/" + 26 + "/items")
+            .post(FAST_FOOD_URL + "/carts/" + 26 + "/items")
             .then()
             .extract().response();
         System.err.println("Itens confirmados no carrinho | status_code: " + response.statusCode());
@@ -84,7 +89,7 @@ public class DefinicaoPassos {
     public void recuperarCarrinhoParaCheckout(int cartId) {
         response = given()
             .when()
-            .get("http://localhost:8081/carts/" + cartId);
+            .get(FAST_FOOD_URL + "/carts/" + cartId);
         System.err.println("Recuperado carrinho: " + cartId + " - status_code: " + response.statusCode());
     }
 
@@ -97,7 +102,7 @@ public class DefinicaoPassos {
             .contentType("application/json")
             .body(orderRequest)
             .when()
-            .post("http://localhost:8081/checkout");
+            .post(FAST_FOOD_URL + "/checkout");
         System.err.println("Pedido gerado a partir do carrinho - status_code: " + response.statusCode());
     }
 
@@ -112,7 +117,7 @@ public class DefinicaoPassos {
         response = given()
             .contentType("application/json")
             .when()
-            .post("http://localhost:8081/orders/" + orderId + "/payment/approval");
+            .post(ORDERS_URL + "/orders/" + orderId + "/payment/approval");
         System.err.println("Pagamento realizado - status_code: " + response.statusCode());
     }
 
@@ -120,7 +125,7 @@ public class DefinicaoPassos {
     public void recuperarPedidoParaPreparacao() {
         response = given()
             .when()
-            .get("http://localhost:8081/orders?page=1&size=5&status=READY_FOR_PREPARATION");
+            .get(ORDERS_URL + "/orders?page=1&size=5&status=READY_FOR_PREPARATION");
 
         JsonPath jp = new JsonPath(response.asString());
         orderId = jp.getInt("content[0].id");
@@ -138,7 +143,7 @@ public class DefinicaoPassos {
             .contentType("application/json")
             .body(orderRequest)
             .when()
-            .patch("http://localhost:8081/orders/" + orderId + "/status");
+            .patch(ORDERS_URL + "/orders/" + orderId + "/status");
         System.err.println("Status atualizado para PREPARANDO - status_code: " + response.statusCode());
     }
 
@@ -146,7 +151,7 @@ public class DefinicaoPassos {
     public void validarStatusPreparando() {
         response = given()
             .when()
-            .get("http://localhost:8081/orders?page=1&size=5&status=IN_PREPARATION");
+            .get(ORDERS_URL + "/orders?page=1&size=5&status=IN_PREPARATION");
 
         JsonPath jp = new JsonPath(response.asString());
         orderId = jp.getInt("content[0].id");
@@ -159,7 +164,7 @@ public class DefinicaoPassos {
     public void recuperarPedidoProntoParaRetirada() {
         response = given()
             .when()
-            .get("http://localhost:8081/orders?page=1&size=5&status=IN_PREPARATION");
+            .get(ORDERS_URL + "/orders?page=1&size=5&status=IN_PREPARATION");
 
         JsonPath jp = new JsonPath(response.asString());
         orderId = jp.getInt("content[0].id");
@@ -177,7 +182,7 @@ public class DefinicaoPassos {
             .contentType("application/json")
             .body(orderRequest)
             .when()
-            .patch("http://localhost:8081/orders/" + orderId + "/status");
+            .patch(ORDERS_URL + "/orders/" + orderId + "/status");
         System.err.println("Status atualizado para PRONTO PARA RETIRAR - status_code: " + response.statusCode());
     }
 
@@ -185,7 +190,7 @@ public class DefinicaoPassos {
     public void validarStatusProntoParaRetirar() {
         response = given()
             .when()
-            .get("http://localhost:8081/orders?page=1&size=5&status=READY_FOR_PICKUP");
+            .get(ORDERS_URL + "/orders?page=1&size=5&status=READY_FOR_PICKUP");
 
         JsonPath jp = new JsonPath(response.asString());
         orderId = jp.getInt("content[0].id");
@@ -198,7 +203,7 @@ public class DefinicaoPassos {
     public void recuperarPedidoFinalizado() {
         response = given()
             .when()
-            .get("http://localhost:8081/orders?page=1&size=5&status=READY_FOR_PICKUP");
+            .get(ORDERS_URL + "/orders?page=1&size=5&status=READY_FOR_PICKUP");
 
         JsonPath jp = new JsonPath(response.asString());
         orderId = jp.getInt("content[0].id");
@@ -216,7 +221,7 @@ public class DefinicaoPassos {
             .contentType("application/json")
             .body(orderRequest)
             .when()
-            .patch("http://localhost:8081/orders/" + orderId + "/status");
+            .patch(ORDERS_URL + "/orders/" + orderId + "/status");
         System.err.println("Status atualizado para FINALIZADO - status_code: " + response.statusCode());
     }
 
@@ -224,7 +229,7 @@ public class DefinicaoPassos {
     public void validarStatusFinalizado() {
         response = given()
             .when()
-            .get("http://localhost:8081/orders?page=1&size=5&status=FINISHED");
+            .get(ORDERS_URL + "/orders?page=1&size=5&status=FINISHED");
 
         JsonPath jp = new JsonPath(response.asString());
         orderId = jp.getInt("content[0].id");

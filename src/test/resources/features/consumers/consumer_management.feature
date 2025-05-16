@@ -1,7 +1,6 @@
 # language: pt
 Funcionalidade: Fluxo de Pedido
 
-  @smoke
   Cenário: Identificação do usuário
       Dado que o usuário informa o CPF "42885136855"
       Quando a requisição for enviada com dados válidos
@@ -9,7 +8,7 @@ Funcionalidade: Fluxo de Pedido
       E o carrinho deve ser criado
 
     Cenário: Criação de pedido
-        Dado que o usuário adicionou 2 unidades do produto 1
+        Dado que o usuário adicionou 2 unidades do produto "68267e8848324f240219c98f"
         Quando confirmar os itens
         Então o carrinho deve ser gerado
 
