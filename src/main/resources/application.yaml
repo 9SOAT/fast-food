@@ -46,6 +46,9 @@ jwt:
 
 app:
   integration:
+    order:
+      base-url: ${API_FAST_FOOD_ORDER}
+      timeout: 5000
     catalog:
       base-url: ${API_FAST_FOOD_CATALOG}
       timeout: 5000

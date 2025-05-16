@@ -4,7 +4,6 @@ import com.fiap.challenge.food.domain.DomainCartService;
 import com.fiap.challenge.food.domain.DomainCheckoutService;
 import com.fiap.challenge.food.domain.DomainWebhookService;
 import com.fiap.challenge.food.domain.ports.inbound.CartService;
-import com.fiap.challenge.food.domain.ports.inbound.OrderService;
 import com.fiap.challenge.food.domain.ports.outbound.CartRepository;
 import com.fiap.challenge.food.domain.ports.outbound.OrderRepository;
 import com.fiap.challenge.food.domain.ports.outbound.PaymentClient;
@@ -22,8 +21,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public DomainWebhookService webhookService(WebhookRepository webhookRepository, OrderService orderService) {
-        return new DomainWebhookService(webhookRepository, orderService);
+    public DomainWebhookService webhookService(WebhookRepository webhookRepository, OrderRepository orderRepository) {
+        return new DomainWebhookService(webhookRepository, orderRepository);
     }
 
     @Bean

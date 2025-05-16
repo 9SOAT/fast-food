@@ -1,6 +1,6 @@
 package com.fiap.challenge.food.infrastructure.config;
 
-import com.fiap.challenge.food.infrastructure.integration.FastFoodCatalogClient;
+import com.fiap.challenge.food.infrastructure.integration.FastFoodOrderClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,35 +9,35 @@ import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 @Configuration
-public class FastFoodCatalogClientConfig {
+public class FastFoodOrderClientConfig {
 
 
-    @Value("${app.integration.catalog.base-url}")
-    private String catalogBaseUrl;
+    @Value("${app.integration.order.base-url}")
+    private String orderBaseUrl;
 
-    @Value("${app.integration.catalog.timeout:5000}")
+    @Value("${app.integration.order.timeout:5000}")
     private long timeoutMillis;
 
     @Bean
-    public RestClient catalogRestClient() {
+    public RestClient orderRestClient() {
         return RestClient.builder()
-            .baseUrl(catalogBaseUrl)
+            .baseUrl(orderBaseUrl)
             .defaultHeader("Content-Type", "application/json")
             .build();
 
     }
 
     @Bean
-    public FastFoodCatalogClient fastFoodCatalogClient(RestClient catalogRestClient) {
+    public FastFoodOrderClient fastFoodOrderClient(RestClient orderRestClient) {
         // Criando um adaptador do RestClient
-        RestClientAdapter adapter = RestClientAdapter.create(catalogRestClient);
+        RestClientAdapter adapter = RestClientAdapter.create(orderRestClient);
 
         // Configurando o HttpServiceProxyFactory com o adaptador
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter)
 //            .blockTimeout(Duration.ofMillis(timeoutMillis))
             .build();
 
-        // Criando o proxy que implementa a interface FastFoodCatalogClient
-        return factory.createClient(FastFoodCatalogClient.class);
+        // Criando o proxy que implementa a interface FastFoodOrderClient
+        return factory.createClient(FastFoodOrderClient.class);
     }
 }
