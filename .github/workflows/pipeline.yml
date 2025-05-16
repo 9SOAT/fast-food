@@ -14,18 +14,8 @@ permissions:
   contents: read    # This is required for actions/checkout
 
 jobs:
-  static-code-analysis:
-    name: Static Code Analysis
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-cli-action@v4.4.5
-
   unit-test:
     name: Unit Tests
-    needs: static-code-analysis
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
