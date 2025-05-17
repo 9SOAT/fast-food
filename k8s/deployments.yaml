@@ -24,11 +24,11 @@ spec:
               protocol: TCP
           resources:
             requests:
-              memory: "800Mi"
-              cpu: "700m"
+              memory: "1600Mi"
+              cpu: "1400m"
             limits:
-              memory: "800Mi"
-              cpu: "700m"
+              memory: "1600Mi"
+              cpu: "1400m"
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
