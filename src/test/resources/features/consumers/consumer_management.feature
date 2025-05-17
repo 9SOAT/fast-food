@@ -8,12 +8,12 @@ Funcionalidade: Fluxo de Pedido
       E o carrinho deve ser criado
 
     Cenário: Criação de pedido
-        Dado que o usuário adicionou 2 unidades do produto "68267e8848324f240219c98f"
+        Dado que o usuário adicionou 2 unidades do produto "6827cfc120705530d25383c3"
         Quando confirmar os itens
-        Então o carrinho deve ser gerado
+        Então o carrinho deve ser atualizado
 
     Cenário: Pagamento do pedido
-        Dado que o usuário confirmou os itens no carrinho 26
+        Dado que o usuário confirmou os itens no carrinho
         Quando realizar o checkout no carrinho
         Então o pedido deve ser criado
         E o pagamento concluído

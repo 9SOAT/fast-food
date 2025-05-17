@@ -13,16 +13,17 @@ import java.util.Map;
 
 public class DefinicaoPassos {
 
-    public static final String BASE_URL = "http://a56a78ce9edaa472f8c8389a989ee5c7-f1e3acc26c082291.elb.us-east-1.amazonaws.com";
-    public static final String CONSUMER_URL = BASE_URL + "/consumers";
-    public static final String FAST_FOOD_URL = BASE_URL + "/fast-food";
+    public static final String BASE_URL = "http://a7bf8721ba5414f8db9e1857096f15e4-7aa2d50ef0bd9437.elb.us-east-1.amazonaws.com";
+    public static final String CONSUMER_URL = "http://adfcacaf2b6e2494f8e0af2f88c34866-1850307243.us-east-1.elb.amazonaws.com";
+    public static final String FAST_FOOD_URL = "http://a0ba521d9b64e46fe838e8e1cd423990-460479886.us-east-1.elb.amazonaws.com";
     public static final String ORDERS_URL = BASE_URL + "/orders";
 
-    private String currentCpf;
-    private String consumerId;
-    private Integer orderId;
-    private Response response;
-    private Map<String, Object> item = new HashMap<>();
+    private static String currentCpf;
+    private static String consumerId;
+    private static Integer orderId;
+    private static Response response;
+    private static Map<String, Object> item = new HashMap<>();
+    private static Integer cartId;
 
     @Dado("que o usuário informa o CPF {string}")
     public void informarCpfUsuario(String cpf) {
@@ -40,7 +41,7 @@ public class DefinicaoPassos {
 
     @Entao("o usuário deve ser identificado")
     public void validarIdentificacaoUsuario() {
-        consumerId = response.jsonPath().getString("id");
+        consumerId = response.jsonPath().getString("cpf");
         System.err.println("Usuário identificado: ID " + consumerId);
     }
 
@@ -56,7 +57,7 @@ public class DefinicaoPassos {
             .post(FAST_FOOD_URL + "/carts");
         System.err.println("Carrinho criado com sucesso | status_code: " + response.statusCode());
 
-        int cartId = response.jsonPath().getInt("id");
+        cartId = response.jsonPath().getInt("id");
         System.err.println("ID do carrinho gerado: " + cartId);
     }
 
@@ -73,20 +74,20 @@ public class DefinicaoPassos {
             .contentType("application/json")
             .body(item)
             .when()
-            .post(FAST_FOOD_URL + "/carts/" + 26 + "/items")
+            .post(FAST_FOOD_URL + "/carts/" + cartId + "/items")
             .then()
             .extract().response();
         System.err.println("Itens confirmados no carrinho | status_code: " + response.statusCode());
     }
 
-    @Entao("o carrinho deve ser gerado")
-    public void validarCarrinhoCriado() {
+    @Entao("o carrinho deve ser atualizado")
+    public void validarCarrinhoAtualizado() {
         String createdId = response.jsonPath().getString("id");
         System.err.println("Carrinho finalizado: ID " + createdId);
     }
 
-    @Dado("que o usuário confirmou os itens no carrinho {int}")
-    public void recuperarCarrinhoParaCheckout(int cartId) {
+    @Dado("que o usuário confirmou os itens no carrinho")
+    public void recuperarCarrinhoParaCheckout() {
         response = given()
             .when()
             .get(FAST_FOOD_URL + "/carts/" + cartId);
@@ -96,7 +97,7 @@ public class DefinicaoPassos {
     @Quando("realizar o checkout no carrinho")
     public void executarCheckoutCarrinho() {
         Map<String, Object> orderRequest = new HashMap<>();
-        orderRequest.put("cartId", 26);
+        orderRequest.put("cartId", cartId);
 
         response = given()
             .contentType("application/json")
