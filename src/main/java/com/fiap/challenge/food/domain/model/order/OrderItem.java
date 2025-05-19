@@ -26,4 +26,18 @@ public class OrderItem {
     private BigDecimal price;
     @NonNull
     private BigDecimal subtotal;
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+            "id=" + id +
+            ", productId='" + productId + '\'' +
+            ", productName='" + productName + '\'' +
+            ", productCategory='" + productCategory + '\'' +
+            ", quantity=" + quantity +
+            ", price=" + price +
+            ", subtotal=" + subtotal +
+            '}';
+    }
+
 }
