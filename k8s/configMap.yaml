@@ -6,6 +6,6 @@ data:
   POSTGRES_HOST: "postgres-cluster.cmjee0k0i9k7.us-east-1.rds.amazonaws.com"
   POSTGRES_PORT: "5432"
   POSTGRES_DATABASE: "fast_food"
-  API_FAST_FOOD_CATALOG: "http://fast-food-catalog-svc"
-  API_FAST_FOOD_ORDER: "http://fast-food-order-svc"
+  API_FAST_FOOD_CATALOG: "http://a11a4aa38ce2b4ebc952df9b6c0b767d-1118698415.us-east-1.elb.amazonaws.com"
+  API_FAST_FOOD_ORDER: "http://af8fa8ccebdd44fe48b607d56d3108b6-1289951392.us-east-1.elb.amazonaws.com"
 
