@@ -47,6 +47,7 @@ public class DomainCheckoutService implements CheckoutService {
     private Order createOrder(Cart cart, Payment payment) {
         log.info("Creating order for cartId={}", cart.getId());
         Order order = buildOrder(cart, payment);
+        log.info("Order={}", order);
         return orderRepository.save(order);
     }
 

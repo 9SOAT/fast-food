@@ -35,4 +35,17 @@ public class Payment {
     public boolean isPendingStatus() {
         return this.status.isPending();
     }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+            "id=" + id +
+            ", qrCode='" + qrCode + '\'' +
+            ", type=" + type +
+            ", amount=" + amount +
+            ", transactionId='" + transactionId + '\'' +
+            ", status=" + status +
+            ", approvedAt=" + approvedAt +
+            '}';
+    }
 }

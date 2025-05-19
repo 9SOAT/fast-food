@@ -45,4 +45,18 @@ public class Order {
 
         return ChronoUnit.MINUTES.between(payment.getApprovedAt(), LocalDateTime.now());
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+            "id=" + id +
+            ", cartId=" + cartId +
+            ", consumerId='" + consumerId + '\'' +
+            ", payment=" + payment +
+            ", items=" + items +
+            ", status=" + status +
+            ", total=" + total +
+            ", createdAt=" + createdAt +
+            '}';
+    }
 }
