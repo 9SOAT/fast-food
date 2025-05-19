@@ -27,4 +27,12 @@ class PaymentTest {
         payment.setStatus(PaymentStatus.APPROVED);
         assertFalse(payment.isPendingStatus());
     }
+
+    @Test
+    void shouldRejectPayment() {
+        Payment payment = new Payment();
+        payment.reject();
+        assertEquals(PaymentStatus.REJECTED, payment.getStatus());
+    }
+
 }
