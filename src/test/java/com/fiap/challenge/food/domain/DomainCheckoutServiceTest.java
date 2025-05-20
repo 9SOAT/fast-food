@@ -8,6 +8,7 @@ import com.fiap.challenge.food.domain.model.payment.Payment;
 import com.fiap.challenge.food.domain.ports.outbound.CartRepository;
 import com.fiap.challenge.food.domain.ports.outbound.OrderRepository;
 import com.fiap.challenge.food.domain.ports.outbound.PaymentClient;
+import com.fiap.challenge.food.domain.ports.outbound.PaymentRepository;
 import com.fiap.challenge.food.fixture.CartFixture;
 import com.fiap.challenge.food.fixture.OrderFixture;
 import com.fiap.challenge.food.fixture.PaymentFixture;
@@ -34,6 +35,9 @@ class DomainCheckoutServiceTest {
     @Mock
     private PaymentClient paymentClientMock;
 
+    @Mock
+    private PaymentRepository paymentRepositoryMock;
+
     @InjectMocks
     private DomainCheckoutService domainCheckoutService;
 
@@ -46,6 +50,7 @@ class DomainCheckoutServiceTest {
 
         when(cartRepositoryMock.findById(1L)).thenReturn(Optional.of(cart));
         when(paymentClientMock.create(any(Payment.class))).thenReturn(payment);
+        when(paymentRepositoryMock.save(any(Payment.class))).thenReturn(payment);
         when(orderRepositoryMock.save(any(Order.class))).thenReturn(order);
 
         Order result = domainCheckoutService.checkout(1L);
@@ -54,6 +59,7 @@ class DomainCheckoutServiceTest {
         verify(cartRepositoryMock, times(1)).findById(1L);
         verify(cartRepositoryMock, times(1)).save(cart);
         verify(paymentClientMock, times(1)).create(any(Payment.class));
+        verify(paymentRepositoryMock, times(1)).save(any(Payment.class));
         verify(orderRepositoryMock, times(1)).save(any(Order.class));
     }
 
