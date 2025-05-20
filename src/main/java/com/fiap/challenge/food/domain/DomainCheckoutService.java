@@ -11,6 +11,7 @@ import com.fiap.challenge.food.domain.ports.inbound.CheckoutService;
 import com.fiap.challenge.food.domain.ports.outbound.CartRepository;
 import com.fiap.challenge.food.domain.ports.outbound.OrderRepository;
 import com.fiap.challenge.food.domain.ports.outbound.PaymentClient;
+import com.fiap.challenge.food.domain.ports.outbound.PaymentRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 
@@ -24,12 +25,14 @@ public class DomainCheckoutService implements CheckoutService {
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
     private final PaymentClient paymentClient;
+    private final PaymentRepository paymentRepository;
 
     public DomainCheckoutService(OrderRepository orderRepository,
-                                 CartRepository cartRepository, PaymentClient paymentClient) {
+                                 CartRepository cartRepository, PaymentClient paymentClient, PaymentRepository paymentRepository) {
         this.orderRepository = orderRepository;
         this.cartRepository = cartRepository;
         this.paymentClient = paymentClient;
+        this.paymentRepository = paymentRepository;
     }
 
     @Override
@@ -41,6 +44,7 @@ public class DomainCheckoutService implements CheckoutService {
         cart.checkout();
         cartRepository.save(cart);
         Payment payment = createPayment(cart);
+        paymentRepository.save(payment);
         return createOrder(cart, payment);
     }
 
