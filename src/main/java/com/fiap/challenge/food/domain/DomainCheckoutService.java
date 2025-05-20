@@ -44,7 +44,7 @@ public class DomainCheckoutService implements CheckoutService {
         cart.checkout();
         cartRepository.save(cart);
         Payment payment = createPayment(cart);
-        paymentRepository.save(payment);
+        payment = paymentRepository.save(payment);
         return createOrder(cart, payment);
     }
 
