@@ -1,5 +1,7 @@
 package com.fiap.challenge.food.consumers;
 
+import com.fiap.challenge.food.application.request.PaymentWebhookStatus;
+import com.fiap.challenge.food.application.request.WebhookAction;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
@@ -8,19 +10,19 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefinicaoPassos {
+public class DefinicaoPassosPedido {
 
-    public static final String BASE_URL = "http://a7bf8721ba5414f8db9e1857096f15e4-7aa2d50ef0bd9437.elb.us-east-1.amazonaws.com";
-    public static final String CONSUMER_URL = "http://adfcacaf2b6e2494f8e0af2f88c34866-1850307243.us-east-1.elb.amazonaws.com";
-    public static final String FAST_FOOD_URL = "http://a0ba521d9b64e46fe838e8e1cd423990-460479886.us-east-1.elb.amazonaws.com";
-    public static final String ORDERS_URL = BASE_URL + "/orders";
+    public static final String CONSUMER_URL = "http://a4cd0945c9b014988b80bdcb2859b23c-208191958.us-east-1.elb.amazonaws.com";
+    public static final String FAST_FOOD_URL = "http://a0ef7dae8bc5b439cb42c70027235315-1121953028.us-east-1.elb.amazonaws.com";
+    public static final String ORDERS_URL = "http://ae74f709671da44f9ae9c7279548d4e1-1790224368.us-east-1.elb.amazonaws.com";
 
     private static String currentCpf;
     private static String consumerId;
-    private static Integer orderId;
+    private static Long orderId;
     private static Response response;
     private static Map<String, Object> item = new HashMap<>();
     private static Integer cartId;
@@ -109,16 +111,23 @@ public class DefinicaoPassos {
 
     @Entao("o pedido deve ser criado")
     public void validarPedidoCriado() {
-        orderId = response.jsonPath().getInt("id");
+        orderId = response.jsonPath().getLong("id");
         System.err.println("Pedido criado com ID: " + orderId);
     }
 
     @E("o pagamento concluído")
     public void validarPagamentoConcluido() {
+        Map<String, Object> webhookRequest = new HashMap<>();
+        webhookRequest.put("transactionId", response.jsonPath().getString("payment.transactionId"));
+        webhookRequest.put("action", WebhookAction.UPDATED);
+        webhookRequest.put("status", PaymentWebhookStatus.APPROVED);
+        webhookRequest.put("dateCreated", ZonedDateTime.now());
+
         response = given()
             .contentType("application/json")
+            .body(webhookRequest)
             .when()
-            .post(ORDERS_URL + "/orders/" + orderId + "/payment/approval");
+            .post(FAST_FOOD_URL + "/webhook");
         System.err.println("Pagamento realizado - status_code: " + response.statusCode());
     }
 
@@ -129,7 +138,7 @@ public class DefinicaoPassos {
             .get(ORDERS_URL + "/orders?page=1&size=5&status=READY_FOR_PREPARATION");
 
         JsonPath jp = new JsonPath(response.asString());
-        orderId = jp.getInt("content[0].id");
+        orderId = jp.getLong("content[0].id");
         String status = jp.getString("content[0].status");
 
         System.err.println("Pedido " + orderId + " com status: " + status + " - status_code: " + response.statusCode());
@@ -155,7 +164,7 @@ public class DefinicaoPassos {
             .get(ORDERS_URL + "/orders?page=1&size=5&status=IN_PREPARATION");
 
         JsonPath jp = new JsonPath(response.asString());
-        orderId = jp.getInt("content[0].id");
+        orderId = jp.getLong("content[0].id");
         String status = jp.getString("content[0].status");
 
         System.err.println("Pedido " + orderId + " com status: " + status + " - status_code: " + response.statusCode());
@@ -168,7 +177,7 @@ public class DefinicaoPassos {
             .get(ORDERS_URL + "/orders?page=1&size=5&status=IN_PREPARATION");
 
         JsonPath jp = new JsonPath(response.asString());
-        orderId = jp.getInt("content[0].id");
+        orderId = jp.getLong("content[0].id");
         String status = jp.getString("content[0].status");
 
         System.err.println("Pedido " + orderId + " com status: " + status + " - status_code: " + response.statusCode());
@@ -194,7 +203,7 @@ public class DefinicaoPassos {
             .get(ORDERS_URL + "/orders?page=1&size=5&status=READY_FOR_PICKUP");
 
         JsonPath jp = new JsonPath(response.asString());
-        orderId = jp.getInt("content[0].id");
+        orderId = jp.getLong("content[0].id");
         String status = jp.getString("content[0].status");
 
         System.err.println("Pedido " + orderId + " com status: " + status + " - status_code: " + response.statusCode());
@@ -207,7 +216,7 @@ public class DefinicaoPassos {
             .get(ORDERS_URL + "/orders?page=1&size=5&status=READY_FOR_PICKUP");
 
         JsonPath jp = new JsonPath(response.asString());
-        orderId = jp.getInt("content[0].id");
+        orderId = jp.getLong("content[0].id");
         String status = jp.getString("content[0].status");
 
         System.err.println("Pedido " + orderId + " com status: " + status + " - status_code: " + response.statusCode());
@@ -233,7 +242,7 @@ public class DefinicaoPassos {
             .get(ORDERS_URL + "/orders?page=1&size=5&status=FINISHED");
 
         JsonPath jp = new JsonPath(response.asString());
-        orderId = jp.getInt("content[0].id");
+        orderId = jp.getLong("content[0].id");
         String status = jp.getString("content[0].status");
 
         System.err.println("Pedido " + orderId + " com status: " + status + " - status_code: " + response.statusCode());

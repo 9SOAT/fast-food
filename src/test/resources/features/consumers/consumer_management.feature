@@ -1,39 +1,18 @@
 # language: pt
-Funcionalidade: Fluxo de Pedido
+Funcionalidade: Gerenciamento de Usuários
 
-  Cenário: Identificação do usuário
-      Dado que o usuário informa o CPF "42885136855"
-      Quando a requisição for enviada com dados válidos
-      Então o usuário deve ser identificado
-      E o carrinho deve ser criado
+    @smoke
+    Cenário: Cadastro de novo usuário
+        Dado que o sistema recebe os dados do novo usuário
+        Quando o cadastro for enviado
+        Então o usuário deve ser salvo com sucesso
 
-    Cenário: Criação de pedido
-        Dado que o usuário adicionou 2 unidades do produto "6827cfc120705530d25383c3"
-        Quando confirmar os itens
-        Então o carrinho deve ser atualizado
+    Cenário: Consulta de usuário por CPF
+        Dado que existe um usuário com CPF "11457801809"
+        Quando for realizada a busca por esse CPF
+        Então o sistema deve retornar os dados do usuário correspondente
 
-    Cenário: Pagamento do pedido
-        Dado que o usuário confirmou os itens no carrinho
-        Quando realizar o checkout no carrinho
-        Então o pedido deve ser criado
-        E o pagamento concluído
-
-    Cenário: Atualizar status para PREPARANDO
-        Dado que o preparo do pedido foi iniciado
-        Quando o status for alterado para PREPARANDO
-        Então o pedido deve refletir o status PREPARANDO
-
-    Cenário: Atualizar status para PRONTO PARA RETIRAR
-        Dado que o preparo foi finalizado
-        Quando o status for alterado para PRONTO PARA RETIRAR
-        Então o pedido deve refletir o status PRONTO PARA RETIRAR
-
-    Cenário: Atualizar status para FINALIZADO
-        Dado que o pedido foi finalizado
-        Quando o status for alterado para FINALIZADO
-        Então o pedido deve refletir o status FINALIZADO
-
-
-
-
-
+    Cenário: Listagem paginada de usuários
+        Dado que existem múltiplos usuários cadastrados
+        Quando for solicitada a página 1 com tamanho 5
+        Então o sistema deve retornar até 5 usuários
