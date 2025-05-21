@@ -3,8 +3,6 @@ package com.fiap.challenge.food.consumers;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
-import io.cucumber.java.pt.E;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 
@@ -12,7 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DefinicaoPassosCustomer {
+public class DefinicaoPassosConsumer {
+
+    public static final String CONSUMER_URL = "http://a4cd0945c9b014988b80bdcb2859b23c-208191958.us-east-1.elb.amazonaws.com";
 
     private Response response;
     private String currentCpf;
@@ -22,13 +22,13 @@ public class DefinicaoPassosCustomer {
         Map<String, Object> usuario = new HashMap<>();
         usuario.put("name", "João dos Santos Alves");
         usuario.put("email", "joao@gmail.com");
-        usuario.put("cpf", "11457801809");
+        usuario.put("cpf", "44931086063");
 
         response = given()
             .contentType("application/json")
             .body(usuario)
             .when()
-            .post("http://localhost:8081/consumers");
+            .post( CONSUMER_URL + "/consumers");
 
         System.err.println("Usuário cadastrado | Status: " + response.statusCode());
     }
@@ -40,8 +40,8 @@ public class DefinicaoPassosCustomer {
 
     @Entao("o usuário deve ser salvo com sucesso")
     public void validarCadastroUsuario() {
-        String id = response.jsonPath().getString("id");
-        System.err.println("Usuário salvo com ID: " + id);
+        String id = response.jsonPath().getString("cpf");
+        System.err.println("Usuário salvo com CPF: " + id);
     }
 
     @Dado("que existe um usuário com CPF {string}")
@@ -54,7 +54,7 @@ public class DefinicaoPassosCustomer {
     public void buscarUsuarioPorCpf() {
         response = given()
             .when()
-            .get("http://localhost:8081/consumers/" + currentCpf);
+            .get(CONSUMER_URL + "/consumers/" + currentCpf);
 
         System.err.println("Busca realizada por CPF: " + currentCpf + " | Status: " + response.statusCode());
     }
@@ -74,7 +74,7 @@ public class DefinicaoPassosCustomer {
     public void consultarUsuariosPaginados(int page, int size) {
         response = given()
             .when()
-            .get("http://localhost:8081/consumers?page=" + page + "&size=" + size);
+            .get(CONSUMER_URL + "/consumers?page=" + page + "&size=" + size);
 
         System.err.println("Consulta de usuários paginada | Página: " + page + " | Tamanho: " + size + " | Status: " + response.statusCode());
     }

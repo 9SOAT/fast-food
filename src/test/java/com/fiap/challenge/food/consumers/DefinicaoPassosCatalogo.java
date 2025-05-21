@@ -13,8 +13,9 @@ import java.util.Map;
 
 public class DefinicaoPassosCatalogo {
 
-    private Response response;
+    public static final String CATALOG_URL = "http://accc0de26ffa74a91b5f55fdc9355f5b-306037675.us-east-1.elb.amazonaws.com";
 
+    private Response response;
 
     @Dado("que o administrador acessa o sistema de catálogo")
     public void acessarSistemaCatalogo() {
@@ -34,7 +35,7 @@ public class DefinicaoPassosCatalogo {
             .contentType("application/json")
             .body(produto)
             .when()
-            .post("http://localhost:8081/products");
+            .post(CATALOG_URL + "/products");
 
         System.err.println("Produto cadastrado | Status: " + response.statusCode());
     }
@@ -58,7 +59,7 @@ public class DefinicaoPassosCatalogo {
             .contentType("application/json")
             .body(produtoInvalido)
             .when()
-            .post("http://localhost:8081/products");
+            .post(CATALOG_URL + "/products");
 
         System.err.println("Tentativa de cadastro inválido | Status: " + response.statusCode());
     }
@@ -97,7 +98,7 @@ public class DefinicaoPassosCatalogo {
             .contentType("application/json")
             .body(atualizacao)
             .when()
-            .put("http://localhost:8081/products/8");
+            .put(CATALOG_URL + "/products/682d098a1ceeae73ebed9b03");
 
         System.err.println("Produto atualizado com novo valor | Status: " + response.statusCode());
     }
@@ -118,7 +119,7 @@ public class DefinicaoPassosCatalogo {
         response = given()
             .contentType("application/json")
             .when()
-            .delete("http://localhost:8081/products/8");
+            .delete(CATALOG_URL + "/products/682d098a1ceeae73ebed9b03");
 
         System.err.println("Status do produto atualizado para: Inativo | Status: " + response.statusCode());
     }
@@ -127,7 +128,7 @@ public class DefinicaoPassosCatalogo {
     public void validarProdutoInativo() {
         response = given()
             .when()
-            .get("http://localhost:8081/products/8");
+            .get(CATALOG_URL + "/products/682d098a1ceeae73ebed9b03");
 
         boolean ativo = response.jsonPath().getString("status").equalsIgnoreCase("Ativo");
         if (ativo) {
@@ -146,7 +147,7 @@ public class DefinicaoPassosCatalogo {
     public void filtrarProdutosPorStatus(String status) {
         response = given()
             .when()
-            .get("http://localhost:8081/products?page=1&size=10&status=" + status);
+            .get(CATALOG_URL + "/products?page=1&size=10&status=" + status);
 
         System.err.println("Filtro aplicado por status: " + status + " | Status: " + response.statusCode());
     }
