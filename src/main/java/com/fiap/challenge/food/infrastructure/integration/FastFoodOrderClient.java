@@ -12,10 +12,10 @@ public interface FastFoodOrderClient {
     @PostExchange(value = "/orders/create")
     OrderEntity saveOrder(@RequestBody Order order);
 
-    @PostExchange(value = "/orders/{id}/payment/approve")
+    @PostExchange(value = "/orders/payment/{id}/approve")
     void approvePayment(@PathVariable String transactionId);
 
-    @PostExchange(value = "/orders/{id}/payment/reject")
+    @PostExchange(value = "/orders/payment/{id}/reject")
     void rejectPayment(@PathVariable String transactionId);
 
 }
