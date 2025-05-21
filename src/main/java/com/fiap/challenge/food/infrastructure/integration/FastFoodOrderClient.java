@@ -13,9 +13,9 @@ public interface FastFoodOrderClient {
     OrderEntity saveOrder(@RequestBody Order order);
 
     @PostExchange(value = "/orders/payment/{id}/approve")
-    void approvePayment(@PathVariable String transactionId);
+    void approvePayment(@PathVariable String id);
 
     @PostExchange(value = "/orders/payment/{id}/reject")
-    void rejectPayment(@PathVariable String transactionId);
+    void rejectPayment(@PathVariable String id);
 
 }
