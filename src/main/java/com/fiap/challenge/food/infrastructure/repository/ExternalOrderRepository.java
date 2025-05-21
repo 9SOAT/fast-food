@@ -24,7 +24,7 @@ public class ExternalOrderRepository implements OrderRepository {
     public Order save(Order order) {
         OrderEntity orderEntity = fastFoodOrderClient.saveOrder(order);
         log.info("Order saved: {}", orderEntity.getId());
-
+        orderEntity.setPayment(entityMapper.toPaymentEntity(order.getPayment()));
         return entityMapper.toOrder(orderEntity);
     }
 
