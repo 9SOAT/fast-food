@@ -1,6 +1,5 @@
 package com.fiap.challenge.food.infrastructure.repository;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fiap.challenge.food.domain.model.order.Order;
 import com.fiap.challenge.food.domain.ports.outbound.OrderRepository;
 import com.fiap.challenge.food.infrastructure.entity.OrderEntity;
@@ -15,12 +14,10 @@ public class ExternalOrderRepository implements OrderRepository {
 
     private final FastFoodOrderClient fastFoodOrderClient;
     private final EntityMapper entityMapper;
-    private final ObjectMapper objectMapper;
 
-    public ExternalOrderRepository(FastFoodOrderClient fastFoodOrderClient, EntityMapper entityMapper, ObjectMapper objectMapper) {
+    public ExternalOrderRepository(FastFoodOrderClient fastFoodOrderClient, EntityMapper entityMapper) {
         this.fastFoodOrderClient = fastFoodOrderClient;
         this.entityMapper = entityMapper;
-        this.objectMapper = objectMapper;
     }
 
     @Override
